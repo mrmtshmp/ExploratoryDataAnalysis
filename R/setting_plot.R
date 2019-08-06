@@ -37,7 +37,7 @@ setting_plot <- function(setID=1){
       scales="free",
       strip.position="bottom"
     )
-    summ_plot_theme <- theme(
+    summ_plot_theme <<- theme(
       legend.text = element_text(size = 20, colour = "black", angle = 45),
       strip.text.x = element_text(size =20, colour = "black", angle = 0),
       axis.text.x  = element_text(size =20, colour = "black", angle = 0, hjust=0, vjust=1),
@@ -49,7 +49,7 @@ setting_plot <- function(setID=1){
       panel.grid.minor=element_blank(),
       panel.background=element_rect(colour="black", fill="white")
       )
-    summ_plot_theme_byVal <- theme(
+    summ_plot_theme_byVal <<- theme(
       legend.text = element_text(size = 20, colour = "black", angle = 45),
       strip.text.x = element_text(size =20, colour = "black", angle = 0),
       axis.text.x  = element_text(size =15, colour = "black", angle = 315, hjust=0, vjust=1),
@@ -64,10 +64,10 @@ setting_plot <- function(setID=1){
 
     # histogram
 
-    summ_hist_geom <-  geom_histogram(aes(fill=f.Sex, alpha=0.5), position="stack")
-    summ_hist_facet <-  facet_wrap(~var,scales="free_x",strip.position="bottom")
-    summ_hist_fill  <-  scale_fill_manual(values = c("#006699", "#990066"))
-    summ_hist_theme <- theme(
+    summ_hist_geom <<- geom_histogram(aes(fill=f.Sex, alpha=0.5), position="stack")
+    summ_hist_facet <<- facet_wrap(~var,scales="free_x",strip.position="bottom")
+    summ_hist_fill <<- scale_fill_manual(values = c("#006699", "#990066"))
+    summ_hist_theme <<- theme(
       legend.text = element_text(size = 10, colour = "black", angle = 45),
       strip.text.x = element_text(size =5, colour = "black", angle = 0),
       legend.background=element_blank(),
@@ -80,9 +80,9 @@ setting_plot <- function(setID=1){
 
     # Scatter plot
 
-    corr_plot_facet <-  facet_wrap(~f.Sex, scales="free",strip.position="bottom")
+    corr_plot_facet <<- facet_wrap(~f.Sex, scales="free",strip.position="bottom")
 
-    corr_plot_theme <- theme(
+    corr_plot_theme <<- theme(
       #  legend.text = element_text(size = 5, colour = "black", angle = 0),
       #  legend.position = c(5,7),
       #  legend.background=element_blank(),
@@ -132,6 +132,7 @@ setting_plot <- function(setID=1){
       values=shape_basket_2
       )
     }
+  return(summ_plot_theme)
   }
 
 
