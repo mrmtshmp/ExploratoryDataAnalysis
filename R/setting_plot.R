@@ -1,5 +1,12 @@
-## disc: Parameters preset for plots
-## created:  2019/08/06 (originated by source 2018/02/08)
+#' Preset parameters for plots to use ExploratoryDataAnalysis package.
+#'
+#' @import dplyr
+#' @import ggplot2
+#'
+#' @param setID <numeric; preset=1>
+#'
+#' @export
+
 ## Note   :  including themes for ggplot and GGally
 
 setting_plot <- function(setID=1){
@@ -92,24 +99,28 @@ setting_plot <- function(setID=1){
     #  GGally::wrap_fn_with_arg(fun, params=list(...)) :
     #    ggpairs の 描画関数（ggally_points）の引数（params=内で指定） に値を渡す
 
-    corr_plot_params <- list(
-      continuous = wrap_fn_with_param_arg(
-        ggally_points,
-        params=c(size=1)
-      ),
-      combo = wrap_fn_with_param_arg(
-        ggally_box,
-        params=c(size=0.5,linetype=1)
+    obj.wrap_fn_with_param_arg <- wrap_fn_with_param_arg(
+      ggally_points,
+      params=c(size=1)
       )
+    obj.wrap_fn_with_param_arg <- wrap_fn_with_param_arg(
+      ggally_box,
+      params=c(size=0.5,linetype=1)
+      )
+    obj_2_.wrap_fn_with_param_arg <- wrap_fn_with_param_arg(
+      ggally_box,
+      params=c(size=0.5,linetype=1)
+      )
+
+    corr_plot_params <- list(
+      continuous = obj.wrap_fn_with_param_arg,
+      combo = obj.wrap_fn_with_param_arg
     )
 
     corr_plot_params_2 <- list(
       continuous = "barDiag",
-      combo = wrap_fn_with_param_arg(
-        ggally_box,
-        params=c(size=0.5,linetype=1)
+      combo = obj_2_.wrap_fn_with_param_arg
       )
-    )
 
     shape_basket_1 <- c(8,15,16,17,18,19)
     shape_basket_2 <- c(9:14)
