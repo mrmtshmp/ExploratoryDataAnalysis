@@ -1,0 +1,19 @@
+Package: ExploratoryDataAnalysis
+Title: Make plots for explanatory data analyses.
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Shimpei",
+           family = "Morimoto",
+           role = c("aut", "cre"),
+           email = "mr.mt.shm@gmail.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description:  Make plots for explanatory data analyses..
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Imports: 
+    dplyr,
+    ggplot2,
+    gplots,
+    tibble
