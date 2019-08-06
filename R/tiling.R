@@ -1,17 +1,29 @@
 #' Make heatmap-like tile plot. (wrapper of gplots::heatmap2)
 
-#' @import ggplot2
+#'
 #' @importFrom gplots heatmap.2
 #' @importFrom tibble column_to_rownames
-#' @importFrom dplyr %>%
-#' @importFrom dplyr filter
-#' @importFrom dplyr select
+#' @importFrom tibble rownames_to_column
+#' @importFrom grDevices dev.off
+#' @importFrom grDevices quartz
+#' @importFrom graphics axis
+#' @importFrom graphics par
+#' @importFrom graphics plot
+#' @importFrom graphics rect
+#' @importFrom stats cmdscale
+#' @importFrom stats as.dendrogram
+#' @importFrom stats dist hclust
+#' @importFrom stats hclust
 #'
+#' @import dplyr
+#' @import ggplot2
 #' @param fn.output.pdf <character; output> File name of PDF output.
 #' @param surfix.maintitle <character; output> Surfix of Main title in each page.
 #' @param bin <numeric; processing>
 #' @param n.breaks <numeric; processing; prefix =20>
 #' @param col.bias <numeric; processing; prefix =2> Colour brewer setting
+#' @param breaks  <numeric>
+#' @param row.adjust <numeric>
 #' @param count_table <object; input data; mandatory> A data.frame with features as column and subjects as rows.
 #' @param physi_table <object; input data> A data.frame with 2 column of a feature and subject ID. This ID must be identical with of count_table.
 #' @param filt.Features <character strings; input data> Select column of count_table. If NULL, all features are selected.
@@ -32,7 +44,6 @@ func.tilemap <- function(
   fn.output.pdf='Tile',
   surfix.maintitle = 'Group: ',
   bin           = FALSE,
-  fn.out.fix    = "fix",
   n.breaks      = 20,
   col.bias      = 2,
   breaks        = NULL,

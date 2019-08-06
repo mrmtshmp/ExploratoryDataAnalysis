@@ -1,5 +1,5 @@
 Package: ExploratoryDataAnalysis
-Title: Make plots for explanatory data analyses.
+Title: Make plots for explanatory data analyses
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Shimpei",

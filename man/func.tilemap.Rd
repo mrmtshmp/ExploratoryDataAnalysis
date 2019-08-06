@@ -5,13 +5,13 @@
 \title{Make heatmap-like tile plot. (wrapper of gplots::heatmap2)}
 \usage{
 func.tilemap(fn.output.pdf = "Tile", surfix.maintitle = "Group: ",
-  bin = FALSE, fn.out.fix = "fix", n.breaks = 20, col.bias = 2,
-  breaks = NULL, row.adjust = 0, count_table, physi_table,
-  filt.Features = NULL, unitHierarchy = c("Kingdom", "Phylum", "Class",
-  "Order", "Family", "Genus", "Species", "NoAgg"),
-  method.dist.Row = c("manhattan", "euclidean"),
-  method.hclust.Row = c("ward.D2"), method.dist.Col = c("manhattan",
-  "euclidean"), method.hclust.Col = c("ward.D2"))
+  bin = FALSE, n.breaks = 20, col.bias = 2, breaks = NULL,
+  row.adjust = 0, count_table, physi_table, filt.Features = NULL,
+  unitHierarchy = c("Kingdom", "Phylum", "Class", "Order", "Family",
+  "Genus", "Species", "NoAgg"), method.dist.Row = c("manhattan",
+  "euclidean"), method.hclust.Row = c("ward.D2"),
+  method.dist.Col = c("manhattan", "euclidean"),
+  method.hclust.Col = c("ward.D2"))
 }
 \arguments{
 \item{fn.output.pdf}{<character; output> File name of PDF output.}
@@ -23,6 +23,10 @@ func.tilemap(fn.output.pdf = "Tile", surfix.maintitle = "Group: ",
 \item{n.breaks}{<numeric; processing; prefix =20>}
 
 \item{col.bias}{<numeric; processing; prefix =2> Colour brewer setting}
+
+\item{breaks}{<numeric>}
+
+\item{row.adjust}{<numeric>}
 
 \item{count_table}{<object; input data; mandatory> A data.frame with features as column and subjects as rows.}
 
