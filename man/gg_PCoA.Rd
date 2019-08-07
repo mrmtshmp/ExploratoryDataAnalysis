@@ -26,13 +26,13 @@ gg_PCoA(distmat, groups, ggplot_theme = summ_plot_theme,
 
 \item{legend.name}{<object; input data> A data.frame with 2 column of a feature and subject ID. This ID must be identical with of count_table.}
 
-\item{jitter.v}{<numeric; proccessing>}
+\item{jitter.v}{<numeric; proccessing; prefix=0.3>}
 
-\item{jitter.h}{<numeric; proccessing>}
+\item{jitter.h}{<numeric; proccessing; prefix=0.3>}
 
-\item{size}{<numeric; proccessing>}
+\item{size}{<numeric; proccessing; prefix=2>}
 
-\item{alpha}{<numeric; proccessing>}
+\item{alpha}{<numeric; proccessing; prefix=0.7>}
 }
 \description{
 PCoA plot via cmdscale

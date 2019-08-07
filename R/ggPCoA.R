@@ -10,10 +10,10 @@
 #' @param labels <; processing; prefix =2> Colour brewer setting
 #' @param title <object; input data; mandatory> A data.frame with features as column and subjects as rows.
 #' @param legend.name <object; input data> A data.frame with 2 column of a feature and subject ID. This ID must be identical with of count_table.
-#' @param jitter.v <numeric; proccessing>
-#' @param jitter.h <numeric; proccessing>
-#' @param size <numeric; proccessing>
-#' @param alpha <numeric; proccessing>
+#' @param jitter.v <numeric; proccessing; prefix=0.3>
+#' @param jitter.h <numeric; proccessing; prefix=0.3>
+#' @param size <numeric; proccessing; prefix=2>
+#' @param alpha <numeric; proccessing; prefix=0.7>
 #'
 #' @export
 

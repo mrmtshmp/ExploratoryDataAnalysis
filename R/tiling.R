@@ -137,6 +137,7 @@ func.tilemap <- function(
       column_to_rownames(
         "Features"
         )
+    colnames(OxUdata) <- .filt.ID
 
     colv <- hclust(
       dist(
@@ -159,6 +160,8 @@ func.tilemap <- function(
   #  Count table of all subjects
   #  and dendrogram (for clustering by row)
 
+  subjID <- rownames(count_table)
+
   OxUdata_all <- count_table %>%
 
     # dplyr::filter(
@@ -177,6 +180,7 @@ func.tilemap <- function(
     column_to_rownames(
       "Features"
     )
+  colnames(OxUdata_all) <- subjID
 
   rowv <- hclust(
     dist(
