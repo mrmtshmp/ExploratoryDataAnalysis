@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "mr.mt.shm@gmail.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description:  Make plots for explanatory data analyses..
+Description: Make plots for explanatory data analyses..
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -16,4 +16,5 @@ Imports:
     dplyr,
     ggplot2,
     gplots,
-    tibble
+    tibble,
+    plyr
