@@ -15,6 +15,9 @@ extract_type <- function(
   Type_extr,
   Name_type
 ){
+  if(length(colnames(dist))<2){
+    stop("dist-class object must be named")
+  }
   names <- Name_type %>%
 
     dplyr::filter(#parse(text=Type_extr))
@@ -40,32 +43,32 @@ extract_type <- function(
 
 #' @example
 #'
-
-require(plyr)
-require(dplyr)
-require(tibble)
-
-df.Name_type <- data.frame(
-  "ID"  = LETTERS[1:10],
-  "Sex" = rep(c("F","M"), times=5),
-  "val" = matrix(c(1:30), ncol=3)
-  ) %>%
-  column_to_rownames("ID")
-
-mat.dist <- df.Name_type[
-  ,c("val.1","val.2","val.3")
-  ] %>%
-  dist(
-    method = "manhattan"
-    )
-
-Name_type <- data.frame(
-   "Name"  = rownames(df.Name_type),
-   "Sex"   = df.Name_type$Sex
-   )
-
-d00 <- extract_type(
-   mat.dist,
-   Type_extr="Sex=='F'",
-   Name_type=Name_type
-   )
+#
+# require(plyr)
+# require(dplyr)
+# require(tibble)
+#
+# df.Name_type <- data.frame(
+#   "ID"  = LETTERS[1:10],
+#   "Sex" = rep(c("F","M"), times=5),
+#   "val" = matrix(c(1:30), ncol=3)
+#   ) %>%
+#   column_to_rownames("ID")
+#
+# mat.dist <- df.Name_type[
+#   ,c("val.1","val.2","val.3")
+#   ] %>%
+#   dist(
+#     method = "manhattan"
+#     )
+#
+# Name_type <- data.frame(
+#    "Name"  = rownames(df.Name_type),
+#    "Sex"   = df.Name_type$Sex
+#    )
+#
+# d00 <- extract_type(
+#    mat.dist,
+#    Type_extr="Sex=='F'",
+#    Name_type=Name_type
+#    )

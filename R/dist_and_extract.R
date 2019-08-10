@@ -66,11 +66,17 @@ dist_and_extract <- function(
     .method=="UniFrac" &
     length(.param.UniFrac) > 0
     ){
+    if(length(colnames(.otutable_on_taxonomy))<2){
+      stop("matrix must be named in row&col")
+    }
     unifrac_relative <- GUniFrac(
       .otutable_on_taxonomy,
       tree  = tree_phylo,
       alpha = .param.UniFrac
       )
+
+    unifrac_extr <- unifrac_relative
+
     for(i in 1:length(.param.UniFrac)){
       assign(
         sprintf(
@@ -78,25 +84,35 @@ dist_and_extract <- function(
           .param.UniFrac[i],
           sufix
           ),
-        unifrac_relative[[1]][
+        unifrac_extr[[1]][
           ,,
           sprintf("d_%s", .param.UniFrac[i])
-          ],
+          ] %>%
+          extract_type(
+            .type_extr,
+            df.Name_type
+            ),
         envir = .GlobalEnv
+        )
+      print(
+        sprintf(
+          "OUTPUT: d%s_%s",
+          .param.UniFrac[i],
+          sufix
+          )
         )
       }
     }
-  print("hello1")
   if(
     .method %in% c("bray", "jaccard")
     ){
 
     res.dist <- vegdist(
-      .otutable_on_taxonomy,
+      as.matrix(.otutable_on_taxonomy),
       method = .method
       ) %>%
       extract_type(
-        extract_type,
+        .type_extr,
         df.Name_type
         )
     print("hello2")
