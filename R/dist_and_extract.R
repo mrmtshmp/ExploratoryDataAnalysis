@@ -31,7 +31,7 @@ dist_and_extract <- function(
 
   OK_or_NoWay <-
     readline(
-      "This function might overwrite objects in GlovalEnv. Are you OK? 'OK' or 'NW'"
+      "This function might overwrite \n objects in GlovalEnv.  \n Are you OK? 'OK' or 'NW'"
       )
   if (OK_or_NoWay == "NW"){
     stop("STOP")
