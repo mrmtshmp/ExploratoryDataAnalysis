@@ -17,4 +17,6 @@ Imports:
     ggplot2,
     gplots,
     tibble,
-    plyr
+    plyr,
+    vegan,
+    GUniFrac
