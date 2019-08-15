@@ -65,7 +65,7 @@ MIPermute <- function(
           alpha = alpha,
           ...
         )
-        return(m1a)
+        return(c(m1a$MIC, m1a$MAS, m1a$MEV, m1a$MCN, m1a$`MIC-R2`, m1a$GMIC, m1a$TIC))
       }
     )
   }
