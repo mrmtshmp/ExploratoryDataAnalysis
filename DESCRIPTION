@@ -21,4 +21,5 @@ Imports:
     vegan,
     GUniFrac,
     metagenomeSeq,
-    infotheo
+    infotheo,
+    minerva

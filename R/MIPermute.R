@@ -1,16 +1,20 @@
 
 #' Permutation test for mutual information
 #'
+#' @import minerva
+#'
 #' @importFrom infotheo mutinformation
 #' @importFrom infotheo discretize
 #' @importFrom plyr ddply
 #'
 #' @param X <object; input> A numeric vector.
 #' @param Y <object; input> A numeric vector.
-#' @param method <character; proccessing> a method for estimation of entropy.
+#' @param method <character; proccessing> a method for estimation of entropy. (see help of infotheo- or minerva-package)
 #' @param disc.X <character; proccessing> a method for discretization of X.
 #' @param disc.Y <character; proccessing> a method for discretization of Y.
+#' @param mine.alpha <numeric; proccessing> alpha parameter for the mine method. (works only when *method* is "mine")
 #' @param n.sim <numeric; proccessing> The number of simulation.
+#' @param ... Parameters to be passed to the function *minerva::mine*.
 #'
 #' @export
 
@@ -21,7 +25,9 @@ MIPermute <- function(
   method='emp',
   disc.X='equalfreq',
   disc.Y='equalfreq',
-  n.sim = 2000
+  alpha = 0.6,
+  n.sim = 2000,
+  ...
 ){
 
   D <- data.frame('X'=unname(X), 'Y'=unname(Y))
@@ -31,19 +37,39 @@ MIPermute <- function(
     j=seq(1:n.sim)
   )
 
-  output <- ddply(
-    df.pmt,
-    .(i),
-    function(itt){
-      i.numb <- unique(itt$i)
-      if(i.numb > 1) D$Y <- sample(D$Y)
-      m1a <- infotheo::mutinformation(
-        X=discretize(D$X, disc = disc.X, nbins = ),
-        Y=discretize(D$Y, disc = disc.Y, nbins = ),
-        method = method
-      )
-      return(m1a)
-    }
-  )
+  if(method!="MIC"){
+    output <- ddply(
+      df.pmt,
+      .(i),
+      function(itt){
+        i.numb <- unique(itt$i)
+        if(i.numb > 1) D$Y <- sample(D$Y)
+        m1a <- infotheo::mutinformation(
+          X=discretize(D$X, disc = disc.X, nbins = ),
+          Y=discretize(D$Y, disc = disc.Y, nbins = ),
+          method = method
+        )
+        return(m1a)
+      }
+    )
+  }else{
+    output <- ddply(
+      df.pmt,
+      .(i),
+      function(itt){
+        i.numb <- unique(itt$i)
+        if(i.numb > 1) D$Y <- sample(D$Y)
+        m1a <- minerva::mine(
+          X=(D$X),
+          Y=(D$Y),
+          alpha = alpha,
+          ...
+        )
+        return(m1a)
+      }
+    )
+  }
+
+
   return(output)
 }

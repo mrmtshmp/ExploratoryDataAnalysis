@@ -5,7 +5,7 @@
 \title{Make many boxplots from tydy ordering sheet}
 \usage{
 mf.boxplot(data, ggdata, var.x, var.y, size = 0.5, var.col = NA,
-  box.col = "gray", str, dn.surfix)
+  plot.col = "black", box.col = "gray", str, dn.surfix)
 }
 \arguments{
 \item{data}{<object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)}
@@ -19,6 +19,10 @@ mf.boxplot(data, ggdata, var.x, var.y, size = 0.5, var.col = NA,
 \item{size}{<numeric; proccessing>}
 
 \item{var.col}{<character; proccessing>}
+
+\item{plot.col}{<character; proccessing>}
+
+\item{box.col}{<character; proccessing>}
 
 \item{str}{<character; proccessing>}
 

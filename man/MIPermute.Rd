@@ -5,20 +5,24 @@
 \title{Permutation test for mutual information}
 \usage{
 MIPermute(X, Y, method = "emp", disc.X = "equalfreq",
-  disc.Y = "equalfreq", n.sim = 2000)
+  disc.Y = "equalfreq", alpha = 0.6, n.sim = 2000, ...)
 }
 \arguments{
 \item{X}{<object; input> A numeric vector.}
 
 \item{Y}{<object; input> A numeric vector.}
 
-\item{method}{<character; proccessing> a method for estimation of entropy.}
+\item{method}{<character; proccessing> a method for estimation of entropy. (see help of infotheo- or minerva-package)}
 
 \item{disc.X}{<character; proccessing> a method for discretization of X.}
 
 \item{disc.Y}{<character; proccessing> a method for discretization of Y.}
 
 \item{n.sim}{<numeric; proccessing> The number of simulation.}
+
+\item{...}{Parameters to be passed to the function *minerva::mine*.}
+
+\item{mine.alpha}{<numeric; proccessing> alpha parameter for the mine method. (works only when *method* is "mine")}
 }
 \description{
 Permutation test for mutual information
