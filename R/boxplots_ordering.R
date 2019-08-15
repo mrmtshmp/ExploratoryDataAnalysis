@@ -9,6 +9,8 @@
 #' @param var.y <character; proccessing>
 #' @param size <numeric; proccessing>
 #' @param var.col <character; proccessing>
+#' @param plot.col <character; proccessing>
+#' @param box.col <character; proccessing>
 #' @param str <character; proccessing>
 #' @param dn.surfix <character; output>
 #'
@@ -24,6 +26,8 @@ mf.boxplot <- function(
   var.y,
   size = 0.5,
   var.col=NA,
+  plot.col="black",
+  box.col="gray",
   str,
   dn.surfix
   ){
@@ -46,23 +50,29 @@ mf.boxplot <- function(
   )
 
   if(
-    !is.na(var.col)
+    !is.na(match(plot.col, "_"))
     ) {
     plot.color <-
-      scale_color_gradient(low = "blue", high = "orange")
+      scale_color_gradient(
+        low = strsplit(plot.col, "_")[[1]][1],
+        high = strsplit(plot.col, "_")[[1]][2]
+        )
 
     jitter <- geom_jitter(
       aes(
         y   = get(var.y),
         x   = get(var.x),
         color=get(var.col)
-      ),
+        ),
       size = size,
       width = 0.3
       )
     }else{
       plot.color <-
-        scale_color_gradient(low = "black", high = "black")
+        scale_color_gradient(
+          low = plot.col,
+          high = plot.col
+          )
 
       jitter <- geom_jitter(
         aes(
@@ -70,7 +80,8 @@ mf.boxplot <- function(
           x   = get(var.x)
           ),
         size = size,
-        width = 0.3
+        width = 0.3,
+        col=plot.col
         )
       }
 
@@ -82,7 +93,7 @@ mf.boxplot <- function(
           y   = get(var.y),
           x   = get(var.x)
         ),
-        color="gray",
+        color=box.col,
         outlier.alpha = 0
       ) +
 
@@ -116,9 +127,15 @@ mf.wrap.boxplot <- function(D, data, ggdata){
   .var.x     = D$var.x
   .var.y     = D$var.y
   .var.col   = D$var.col
+  .plot.col   = D$plot.col
+  .box.col   = D$box.col
   .str       = D$str
   .dn.surfix = D$dn.surfix
-  mf.boxplot(data, ggdata, var.x=.var.x, var.y=.var.y, var.col=.var.col, str=.str, dn.surfix = .dn.surfix)
+  mf.boxplot(
+    data, ggdata,
+    var.x=.var.x, var.y=.var.y,
+    var.col=.var.col, plot.col = .plot.col, box.col = .box.col,
+    str=.str, dn.surfix = .dn.surfix)
   }
 
 

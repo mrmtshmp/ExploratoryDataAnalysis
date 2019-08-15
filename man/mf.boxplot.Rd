@@ -4,8 +4,8 @@
 \alias{mf.boxplot}
 \title{Make many boxplots from tydy ordering sheet}
 \usage{
-mf.boxplot(data, ggdata, var.x, var.y, size = 0.5, var.col = NA, str,
-  dn.surfix)
+mf.boxplot(data, ggdata, var.x, var.y, size = 0.5, var.col = NA,
+  box.col = "gray", str, dn.surfix)
 }
 \arguments{
 \item{data}{<object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)}
