@@ -2,6 +2,7 @@
 #' Permutation test for mutual information
 #'
 #' @importFrom infotheo mutinformation
+#' @importFrom infotheo discretize
 #' @importFrom plyr ddply
 #'
 #' @param X <object; input> A numeric vector.
