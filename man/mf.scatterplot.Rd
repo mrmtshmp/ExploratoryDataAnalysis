@@ -5,8 +5,9 @@
 \title{Make many scatterplots from tydy ordering sheet}
 \usage{
 mf.scatterplot(data, ggdata, var.x, var.y, trans.y = c("log10",
-  "identity"), trans.x = c("log10", "identity"), var.col, cont.col, str,
-  dn.surfix, betas)
+  "identity"), trans.x = c("log10", "identity"), size = 0.5,
+  var.col = NA, plot.col = "black", line.col = "gray",
+  cont.col = FALSE, str, dn.surfix, betas)
 }
 \arguments{
 \item{data}{<object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)}
@@ -17,13 +18,19 @@ mf.scatterplot(data, ggdata, var.x, var.y, trans.y = c("log10",
 
 \item{var.y}{<character; proccessing>}
 
+\item{trans.y}{<character> To be passed to scale_y_continuous(trans= )}
+
+\item{trans.x}{<character> To be passed to scale_x_continuous(trans= )}
+
+\item{size}{<numeric; proccessing>}
+
 \item{var.col}{<character; proccessing>}
+
+\item{plot.col}{<character> "color_color"(to be passed to scale_color_gradient) or "color"}
 
 \item{str}{<character; proccessing>}
 
 \item{dn.surfix}{<character; output>}
-
-\item{size}{<numeric; proccessing>}
 
 \item{beta}{<character; proccessing> A numeric vector for coefficients of regression line}
 }

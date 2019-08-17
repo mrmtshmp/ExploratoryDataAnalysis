@@ -123,9 +123,10 @@ mf.boxplot <- function(
 #'
 #' @export
 
-mf.wrap.boxplot <- function(D, data, ggdata){
+mf.wrap.boxplot <- function(D, data, ggdata, ...){
   .var.x     = D$var.x
   .var.y     = D$var.y
+  .size      = D$size
   .var.col   = D$var.col
   .plot.col   = D$plot.col
   .box.col   = D$box.col
@@ -133,9 +134,9 @@ mf.wrap.boxplot <- function(D, data, ggdata){
   .dn.surfix = D$dn.surfix
   mf.boxplot(
     data, ggdata,
-    var.x=.var.x, var.y=.var.y,
+    var.x=.var.x, var.y=.var.y, size = .size,
     var.col=.var.col, plot.col = .plot.col, box.col = .box.col,
-    str=.str, dn.surfix = .dn.surfix)
+    str=.str, dn.surfix = .dn.surfix, ...)
   }
 
 
@@ -147,8 +148,11 @@ mf.wrap.boxplot <- function(D, data, ggdata){
 #' @param ggdata <object; input> A object with ggplot-class
 #' @param var.x <character; proccessing>
 #' @param var.y <character; proccessing>
+#' @param trans.y <character> To be passed to scale_y_continuous(trans= )
+#' @param trans.x <character> To be passed to scale_x_continuous(trans= )
 #' @param size <numeric; proccessing>
 #' @param var.col <character; proccessing>
+#' @param plot.col <character> "color_color"(to be passed to scale_color_gradient) or "color"
 #' @param str <character; proccessing>
 #' @param dn.surfix <character; output>
 #' @param beta <character; proccessing> A numeric vector for coefficients of regression line
@@ -159,74 +163,87 @@ mf.wrap.boxplot <- function(D, data, ggdata){
 
 mf.scatterplot <- function(
   data, ggdata, var.x, var.y,
-  trans.y=c("log10", "identity"),
-  trans.x=c("log10", "identity"),
-  var.col, cont.col, str, dn.surfix, betas
+  trans.y  = c("log10", "identity"),
+  trans.x  = c("log10", "identity"),
+  size     = 0.5,
+  var.col  = NA,
+  plot.col = "black",
+  line.col = "gray",
+  cont.col = FALSE,
+  str,
+  dn.surfix,
+  betas
 ){
 
   formula.facet <- sprintf(
     "%s ~ %s", ".",
     str
-  )
+    )
 
-  if(cont.col == TRUE){
-    scale_colour <-
+  if(
+    !is.na(match(plot.col, "_"))
+    ) {
+    plot.color <-
       scale_color_gradient(
-        low  = "blue",
-        high = "orange"
+        low = strsplit(plot.col, "_")[[1]][1],
+        high = strsplit(plot.col, "_")[[1]][2]
+        )
+
+    points <- geom_point(
+      aes(
+        y   = get(var.y),
+        x   = get(var.x),
+        color=get(var.col)
+        ),
+      size = size,
+      width = 0.3
       )
-  } else
-  {
-    scale_colour <-
-      scale_color_brewer(
-        type="qual",
-        palette = "Dark2"
-      )
-  }
+    }else{
+      plot.color <-
+        scale_color_gradient(
+          low = plot.col,
+          high = plot.col
+          )
+
+      point <- geom_point(
+        aes(
+          y   = get(var.y),
+          x   = get(var.x)
+          ),
+        size = size,
+        width = 0.3,
+        col=plot.col
+        )
+      }
 
   trans.y <- trans.y
   trans.x <- trans.x
+
   n.str <- length(
     t(
       unique(data[,str])
+      )
     )
-  )
   print(sprintf("strata=%s", n.str))
+
   pdf(
     sprintf(
       "%s/%s.pdf",
       dir.output,
       dn.surfix
-    ),
+      ),
     width = 7 * n.str
-  )
+    )
 
   p =
     ggdata +
-    geom_point(
-      aes(
-        y   = get(var.y),
-        x   = get(var.x),
-        col = get(var.col)
-      )
-    ) +
-
-    geom_line(
-      aes(
-        y = exp(
-          betas[1] +
-            x * betas[2] +
-            str * betas[3] +
-            x * str * betas[4]
-        )
-      )
-    ) +
-
+    point +
     facet_grid(
       as.formula(formula.facet)
     ) +
 
-    scale_colour
+    plot.color +
+    theme_bw()
 
   if(
     (trans.x=="NoScale") &
@@ -284,12 +301,16 @@ mf.scatterplot <- function(
 #'
 #' @export
 
-mf.wrap.scatterplot <- function(D, data, ggdata){
+mf.wrap.scatterplot <- function(D, data, ggdata, ...){
   .var.x     = D$var.x
   .var.y     = D$var.y
   .trans.y   = D$trans.y
   .trans.x   = D$trans.x
+  .size      = D$size
   .var.col   = D$var.col
+  .plot.col  = D$plot.col
+  .line.col  = D$line.col
+  .cont.col  = D$cont.col
   .str       = D$str
   .dn.surfix = D$dn.surfix
   .cont.col  = 1 - (is.factor(.var.col) + is.character(.var.col))
@@ -297,9 +318,20 @@ mf.wrap.scatterplot <- function(D, data, ggdata){
 
   mf.scatterplot(
     data , ggdata,
-    .var.x, .var.y, .trans.y, .trans.x,
-    .var.col, .cont.col, .str, .dn.surfix#,
-#    beatas=.betas
-  )
-}
+    var.x =.var.x,
+    var.y =.var.y,
+    trans.y =.trans.y,
+    trans.x =.trans.x,
+    size = .size,
+    var.col  = .var.col,
+    plot.col = .plot.col,
+    line.col = .line.col,
+    cont.col = .cont.col,
+    str      = .str,
+    dn.surfix= .dn.surfix,
+    ...
+    # beatas=.betas
+    )
+  }
+
 
