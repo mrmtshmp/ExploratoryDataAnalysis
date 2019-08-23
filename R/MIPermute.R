@@ -59,7 +59,8 @@ MIPermute <- function(
     }else{
       if(
         method !="MIC" &
-        (disc.X == disc.Y == "none")
+        disc.X == "none" &
+        disc.Y == "none"
         ){
         output <- ddply(
           df.pmt,
