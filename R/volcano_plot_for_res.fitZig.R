@@ -10,7 +10,6 @@
 #' @param aggTaxonLvl <character; input>
 #'
 #' @export
-#'
 
 volcano_plot_for_res.fitZig <- function(
   res.fitZig.obj.aggTaxon_full= res.fitZig.obj.aggTaxon_full,

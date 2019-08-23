@@ -4,7 +4,7 @@
 \alias{mf.wrap.scatterplot}
 \title{Make many boxplots from tydy ordering sheet}
 \usage{
-mf.wrap.scatterplot(D, data, ggdata)
+mf.wrap.scatterplot(D, data, ggdata, ...)
 }
 \arguments{
 \item{D}{<object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)}
