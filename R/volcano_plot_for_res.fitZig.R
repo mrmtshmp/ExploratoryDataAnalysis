@@ -178,8 +178,6 @@ volcano_plot_for_res.fitZig <- function(
     )
 }
 
-
-
 # quartz(
 #   type="pdf",
 #   file=sprintf(
@@ -204,5 +202,3 @@ volcano_plot_for_res.fitZig <- function(
 # )
 #
 # dev.off()
-
-
