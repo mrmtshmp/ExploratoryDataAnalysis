@@ -69,8 +69,8 @@ MIPermute <- function(
             i.numb <- unique(itt$i)
             if(i.numb > 1) D$Y <- sample(D$Y)
             m1a <- infotheo::mutinformation(
-              X=D$X,
-              Y=D$Y,
+              X=as.factor(D$X),
+              Y=as.factor(D$Y),
               method = method
               )
             return(m1a)
