@@ -37,7 +37,10 @@ MIPermute <- function(
     j=seq(1:n.sim)
   )
 
-  if(method!="MIC"){
+  if(
+    method !="MIC" &
+    !(disc.X == disc.Y == "none")
+    ){
     output <- ddply(
       df.pmt,
       .(i),
@@ -48,28 +51,45 @@ MIPermute <- function(
           X=discretize(D$X, disc = disc.X, nbins = ),
           Y=discretize(D$Y, disc = disc.Y, nbins = ),
           method = method
-        )
+          )
         return(m1a)
-      }
-    )
-  }else{
-    output <- ddply(
-      df.pmt,
-      .(i),
-      function(itt){
-        i.numb <- unique(itt$i)
-        if(i.numb > 1) D$Y <- sample(D$Y)
-        m1a <- minerva::mine(
-          x=(D$X),
-          y=(D$Y),
-          alpha = alpha,
-          ...
-        )
-        return(c(m1a$MIC, m1a$MAS, m1a$MEV, m1a$MCN, m1a$`MIC-R2`, m1a$GMIC, m1a$TIC))
-      }
-    )
-  }
-
-
+        }
+      )
+    }else{
+      if(
+        method !="MIC" &
+        (disc.X == disc.Y == "none")
+        ){
+        output <- ddply(
+          df.pmt,
+          .(i),
+          function(itt){
+            i.numb <- unique(itt$i)
+            if(i.numb > 1) D$Y <- sample(D$Y)
+            m1a <- infotheo::mutinformation(
+              X=D$X,
+              Y=D$Y,
+              method = method
+              )
+            return(m1a)
+            }
+          )
+        }else{
+          output <- ddply(
+            df.pmt,
+            .(i),
+            function(itt){
+              i.numb <- unique(itt$i)
+              if(i.numb > 1) D$Y <- sample(D$Y)
+              m1a <- minerva::mine(
+                x=(D$X),
+                y=(D$Y),
+                alpha = alpha,
+                ...
+              )
+              return(c(m1a$MIC, m1a$MAS, m1a$MEV, m1a$MCN, m1a$`MIC-R2`, m1a$GMIC, m1a$TIC))
+              }
+            )
+          }
   return(output)
 }

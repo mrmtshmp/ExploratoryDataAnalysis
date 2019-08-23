@@ -1,7 +1,7 @@
 #' Make many boxplots from tydy ordering sheet
 #'
 #' @import ggplot2
-#'
+#' @import XSL
 #'
 #' @param data <object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)
 #' @param ggdata <object; input> A object with ggplot-class
