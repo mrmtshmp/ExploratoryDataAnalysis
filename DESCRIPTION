@@ -22,4 +22,7 @@ Imports:
     GUniFrac,
     metagenomeSeq,
     infotheo,
-    minerva
+    minerva,
+    survminer,
+    survival,
+    rms
