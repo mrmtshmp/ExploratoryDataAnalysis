@@ -22,6 +22,7 @@
 MIPermute <- function(
   X,
   Y,
+  S=NULL,
   method='emp',
   disc.X='equalfreq',
   disc.Y='equalfreq',
@@ -48,11 +49,21 @@ MIPermute <- function(
       function(itt){
         i.numb <- unique(itt$i)
         if(i.numb > 1) D$Y <- sample(D$Y)
-        m1a <- infotheo::mutinformation(
-          X=discretize(D$X, disc = disc.X, nbins = ),
-          Y=discretize(D$Y, disc = disc.Y, nbins = ),
-          method = method
+
+        if(is.null(S)){
+          m1a <- infotheo::mutinformation(
+            X=discretize(D$X, disc = disc.X, nbins = ),
+            Y=discretize(D$Y, disc = disc.Y, nbins = ),
+            method = method
+            )
+        }else{
+          m1a <- infotheo::condinformation(
+            X=discretize(D$X, disc = disc.X, nbins = ),
+            Y=discretize(D$Y, disc = disc.Y, nbins = ),
+            S=D$S,
+            method = method
           )
+          }
         return(m1a)
         }
       )
@@ -68,11 +79,20 @@ MIPermute <- function(
           function(itt){
             i.numb <- unique(itt$i)
             if(i.numb > 1) D$Y <- sample(D$Y)
-            m1a <- infotheo::mutinformation(
-              X=as.factor(D$X),
-              Y=as.factor(D$Y),
-              method = method
-              )
+            if(is.null(S)){
+              m1a <- infotheo::mutinformation(
+                X=as.factor(D$X),
+                Y=as.factor(D$Y),
+                method = method
+                )
+            } else{
+              m1a <- infotheo::condinformation(
+                X=as.factor(D$X),
+                Y=as.factor(D$Y),
+                S=D$S,
+                method = method
+                )
+              }
             return(m1a)
             }
           )
