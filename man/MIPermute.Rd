@@ -4,7 +4,7 @@
 \alias{MIPermute}
 \title{Permutation test for mutual information}
 \usage{
-MIPermute(X, Y, method = "emp", disc.X = "equalfreq",
+MIPermute(X, Y, S = NULL, method = "emp", disc.X = "equalfreq",
   disc.Y = "equalfreq", alpha = 0.6, n.sim = 2000, ...)
 }
 \arguments{

@@ -25,4 +25,6 @@ Imports:
     minerva,
     survminer,
     survival,
-    rms
+    rms,
+    GGally,
+    tidyr
