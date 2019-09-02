@@ -19,7 +19,7 @@
 #' @export
 
 
-MIPermute <- function(
+MICorrPermute <- function(
   X,
   Y,
   S=NULL,
@@ -50,20 +50,23 @@ MIPermute <- function(
         i.numb <- unique(itt$i)
         if(i.numb > 1) D$Y <- sample(D$Y)
 
+        X=discretize(D$X, disc = disc.X, nbins = )
+        Y=discretize(D$Y, disc = disc.Y, nbins = )
+
         if(is.null(S)){
           m1a <- infotheo::mutinformation(
-            X=discretize(D$X, disc = disc.X, nbins = ),
-            Y=discretize(D$Y, disc = disc.Y, nbins = ),
+            X=X,
+            Y=Y,
             S=D$S,
             method = method
-            )
+            )/ infotheo::entropy(unique(X,Y), methos=method)
         }else{
           m1a <- infotheo::condinformation(
-            X=discretize(D$X, disc = disc.X, nbins = ),
-            Y=discretize(D$Y, disc = disc.Y, nbins = ),
+            X=X,
+            Y=Y,
             S=D$S,
             method = method
-          )
+          )/ infotheo::entropy(unique(X, Y), method = method)
           }
         return(m1a)
         }
@@ -80,19 +83,23 @@ MIPermute <- function(
           function(itt){
             i.numb <- unique(itt$i)
             if(i.numb > 1) D$Y <- sample(D$Y)
+
+            X=as.factor(D$X)
+            Y=as.factor(D$Y)
+
             if(is.null(S)){
               m1a <- infotheo::mutinformation(
-                X=as.factor(D$X),
-                Y=as.factor(D$Y),
+                X=X,
+                Y=Y,
                 method = method
-                )
+                )/ infotheo::entropy(unique(X, Y, method=method))
             } else{
               m1a <- infotheo::condinformation(
-                X=as.factor(D$X),
-                Y=as.factor(D$Y),
+                X=X,
+                Y=Y,
                 S=D$S,
                 method = method
-                )
+                )/ infotheo::entropy(unique(X, Y, method=method))
               }
             return(m1a)
             }
