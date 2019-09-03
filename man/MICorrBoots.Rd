@@ -33,3 +33,23 @@ MICorrBoots(X, Y, S = NULL, method = "emp", disc.X = "equalfreq",
 \description{
 Mutual information with weighted bootstrap
 }
+\examples{
+eg.res.MICorrBoots <- MICorrBoots(
+X = c( 1,  1,  2,  3,  5,  2,  2,  3,  1),
+Y = c( 1,  1,  2,  3,  5,  1,  1,  1,  2),
+S = c('A','A','A','A','A','B','B','B','B'),
+method='shrink',
+disc.X='none',
+disc.Y='none',
+alpha = NULL,
+n.sim = 50,
+group = c('A','A','A','A','A','B','B','B','B'),
+samp.prob =
+  rep(
+   1/length( unique( c('A','A','A','A','A','B','B','B','B'))),
+   length( unique( c('A','A','A','A','A','B','B','B','B')))
+   )
+  )
+
+
+}
