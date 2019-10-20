@@ -60,15 +60,23 @@ mf.boxplot <- function(
         high = strsplit(plot.col, "_")[[1]][2]
         )
 
-    jitter <- geom_jitter(
+    jitter <- geom_beeswarm(
       aes(
-        y   = get(var.y),
-        x   = get(var.x),
-        color=get(var.col)
+        y=get(var.y), x=get(var.x), color=get(var.col)
         ),
       size = size,
       width = 0.3
       )
+
+    # jitter <- geom_jitter(
+    #   aes(
+    #     y   = get(var.y),
+    #     x   = get(var.x),
+    #     color=get(var.col)
+    #     ),
+    #   size = size,
+    #   width = 0.3
+    #   )
     }else{
       plot.color <-
         scale_color_gradient(
@@ -76,15 +84,24 @@ mf.boxplot <- function(
           high = plot.col
           )
 
-      jitter <- geom_jitter(
+      jitter <- geom_beeswarm(
         aes(
-          y   = get(var.y),
-          x   = get(var.x)
+          y=get(var.y), x=get(var.x)
           ),
         size = size,
         width = 0.3,
         col=plot.col
-        )
+      )
+
+      # jitter <- geom_jitter(
+      #   aes(
+      #     y   = get(var.y),
+      #     x   = get(var.x)
+      #     ),
+      #   size = size,
+      #   width = 0.3,
+      #   col=plot.col
+      #   )
     }
 
     plot.box_plot <-
