@@ -48,7 +48,7 @@ mf.boxplot <- function(
       dn.surfix,
       str, var.x, var.y
     ),
-    width = 5 * n.str
+    width = 3.5 * n.str
   )
 
   if(
@@ -86,7 +86,7 @@ mf.boxplot <- function(
         col=plot.col
         )
     }
-  
+
     plot.box_plot <-
       ggdata +
       geom_boxplot(
@@ -97,9 +97,9 @@ mf.boxplot <- function(
         color=box.col,
         outlier.alpha = 0
       ) +
-      
+
       jitter +
-      
+
       plot.color +
 #      scale_y_log10() +
       scale_x_discrete() +
@@ -110,12 +110,12 @@ mf.boxplot <- function(
       xlab(var.x) +
       ylab(var.y) +
       labs(
-        title = str, 
+        title = str,
         caption = var.caption
       )
-  
+
   scale.y <- unique(scale.var.y)
-  
+
   if(scale.y=="log10"){
     plot(
       plot.box_plot + scale_y_log10()
@@ -127,7 +127,7 @@ mf.boxplot <- function(
       plot.box_plot
       )
     }
-  
+
 
   dev.off()
 }
@@ -159,7 +159,7 @@ mf.wrap.boxplot <- function(D, data, ggdata, ...){
   .dn.surfix = D$dn.surfix
   mf.boxplot(
     data, ggdata,
-    var.x=.var.x, var.y=.var.y, scale.var.y = .scale.var.y, var.caption = .var.caption, 
+    var.x=.var.x, var.y=.var.y, scale.var.y = .scale.var.y, var.caption = .var.caption,
     size = .size,var.col=.var.col, plot.col = .plot.col, box.col = .box.col,
     str=.str, dn.surfix = .dn.surfix, ...)
   }
@@ -283,7 +283,7 @@ mf.scatterplot <- function(
         y   = get(var.y),
         x   = get(var.x)
         ),
-      color='gray', alpha=0.6, stat = 
+      color='gray', alpha=0.6, stat =
       ) + scale_colour_gradient(low="green",high="red") +
 
     plot.color +
@@ -370,14 +370,14 @@ mf.scatterplot_with_missbox <- function(
   dn.surfix,
   betas
 ){
-  
+
   data$miss <- is.na(data[,var.y])
-  
+
   formula.facet <- sprintf(
     "%s ~ %s", ".",
     str
   )
-  
+
   if(
     !is.na(match(plot.col, "_"))
   ) {
@@ -386,7 +386,7 @@ mf.scatterplot_with_missbox <- function(
         low = strsplit(plot.col, "_")[[1]][1],
         high = strsplit(plot.col, "_")[[1]][2]
       )
-    
+
     points <- geom_point(
       aes(
         y   = get(var.y),
@@ -402,7 +402,7 @@ mf.scatterplot_with_missbox <- function(
         low = plot.col,
         high = plot.col
       )
-    
+
     point <- geom_point(
       aes(
         y   = get(var.y),
@@ -413,17 +413,17 @@ mf.scatterplot_with_missbox <- function(
       col=plot.col
     )
   }
-  
+
   trans.y <- trans.y
   trans.x <- trans.x
-  
+
   n.str <- length(
     t(
       unique(data[,str])
     )
   )
   print(sprintf("strata=%s", n.str))
-  
+
   pdf(
     sprintf(
       "%s/%s.pdf",
@@ -432,7 +432,7 @@ mf.scatterplot_with_missbox <- function(
     ),
     width = 7 * n.str
   )
-  
+
   p =
     ggdata +
     point +
@@ -446,11 +446,11 @@ mf.scatterplot_with_missbox <- function(
       ),
       color='gray', alpha=0.6, h = c(width.SJ(get(var.x)), width.SJ(get(var.y)))
     ) + scale_colour_gradient(low="green",high="red") +
-    
+
     plot.color +
     theme_bw()
-  
-  
+
+
   if(
     is.null(betas)
     ){
@@ -462,10 +462,10 @@ mf.scatterplot_with_missbox <- function(
       intercept = betas[,"b0"] + betas[,"b2"],
       slope = betas[,"b1"] + betas[,"b3"]
       )
-    
+
     p <- p + line_0 + line_1
     }
-  
+
   if(
     (trans.x=="NoScale") &
     (trans.y=="NoScale")
@@ -473,7 +473,7 @@ mf.scatterplot_with_missbox <- function(
     print("No scaled")
     p1 <- p
   }
-  
+
   if(
     (trans.x=="NoScale") &
     (trans.y!="NoScale")
@@ -482,7 +482,7 @@ mf.scatterplot_with_missbox <- function(
     p1 <- p +
         scale_y_continuous(trans=trans.y)
   }
-  
+
   if(
     (trans.x!="NoScale") &
     (trans.y=="NoScale")
@@ -491,13 +491,13 @@ mf.scatterplot_with_missbox <- function(
     p1 <- p +
         scale_x_continuous(trans=trans.x)
   }
-  
+
   if(
     (trans.x!="NoScale") &
     (trans.y!="NoScale")
   ){
     print("Both scaled")
-  
+
     p1 <- p +
         scale_y_continuous(trans=trans.x) +
         scale_x_continuous(trans=trans.x)
@@ -620,7 +620,7 @@ mf.wrap.scatterplot.with_missbox <- function(D, data, ggdata, df.beta, ...){
     df.beta$.id==D$str ,
     c('b0','b1','b2','b3')
     ]
-  
+
   mf.scatterplot_with_missbox(
     data , ggdata,
     var.x =.var.x,
