@@ -86,7 +86,7 @@ mf.boxplot <- function(
 
       jitter <- geom_beeswarm(
         aes(
-          y=get(var.y), x=get(var.x)
+          y=get(var.y), x=get(var.x), shape=get(var.x)
           ),
         size = size,
         width = 0.3,
