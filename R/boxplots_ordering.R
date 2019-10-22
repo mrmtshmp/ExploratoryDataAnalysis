@@ -48,7 +48,7 @@ mf.boxplot <- function(
       dn.surfix,
       str, var.x, var.y
     ),
-    width = 15 * n.str
+    width = 10 * n.str
   )
 
   if(
@@ -86,7 +86,7 @@ mf.boxplot <- function(
 
       jitter <- geom_beeswarm(
         aes(
-          y=get(var.y), x=get(var.x), shape=get(var.x)
+          y=get(var.y), x=get(var.x)
           ),
         size = size,
 #        width = 0.3,
