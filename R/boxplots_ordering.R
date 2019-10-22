@@ -48,7 +48,7 @@ mf.boxplot <- function(
       dn.surfix,
       str, var.x, var.y
     ),
-    width = 7 * n.str
+    width = 15 * n.str
   )
 
   if(
@@ -89,7 +89,7 @@ mf.boxplot <- function(
           y=get(var.y), x=get(var.x), shape=get(var.x)
           ),
         size = size,
-        width = 0.3,
+#        width = 0.3,
         col=plot.col
       )
 
