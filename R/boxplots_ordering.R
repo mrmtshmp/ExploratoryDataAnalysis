@@ -129,7 +129,7 @@ mf.boxplot <- function(
       labs(
         title = str,
         caption = var.caption
-      )
+        )
 
   scale.y <- unique(scale.var.y)
 
@@ -202,7 +202,7 @@ mf.boxplot_on_lines <- function(
       str, var.x, var.y
       ),
     width = 10 * n.str
-  )
+    )
 
   if(
     !is.na(match(plot.col, "_"))
@@ -211,7 +211,7 @@ mf.boxplot_on_lines <- function(
       scale_color_gradient(
         low = strsplit(plot.col, "_")[[1]][1],
         high = strsplit(plot.col, "_")[[1]][2]
-      )
+        )
 
     jitter <- geom_point(
       aes(
@@ -227,8 +227,6 @@ mf.boxplot_on_lines <- function(
       aes(
         y=get(var.y), x=get(var.x), group=get(var.group), color=get(var.col)
         ),
-      size = size,
-      width = 0.1,
       position =
         position_jitter(width = 0.1, height = 0)
       )
@@ -247,7 +245,7 @@ mf.boxplot_on_lines <- function(
       aes(
         y   = get(var.y),
         x   = get(var.x)
-      ),
+        ),
       color=box.col,
       outlier.alpha = 0
     ) +
