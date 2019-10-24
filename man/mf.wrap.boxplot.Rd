@@ -2,7 +2,7 @@
 % Please edit documentation in R/boxplots_ordering.R
 \name{mf.wrap.boxplot}
 \alias{mf.wrap.boxplot}
-\title{Make many boxplots from tydy ordering sheet}
+\title{Make many boxplots from tidy ordering sheet}
 \usage{
 mf.wrap.boxplot(D, data, ggdata, ...)
 }
@@ -14,5 +14,5 @@ mf.wrap.boxplot(D, data, ggdata, ...)
 \item{ggdata}{<object; input> A object with ggplot-class}
 }
 \description{
-Make many boxplots from tydy ordering sheet
+Make many boxplots from tidy ordering sheet
 }

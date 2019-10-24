@@ -1,4 +1,4 @@
-#' Make many boxplots from tydy ordering sheet
+#' Make many boxplots from tidy ordering sheet
 #'
 #' @import ggplot2
 #'
@@ -150,9 +150,144 @@ mf.boxplot <- function(
 }
 
 
+#' Make many boxplots on line plot from tidy ordering sheet
+#'
+#' @import ggplot2
+#'
+#' @param data <object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)
+#' @param ggdata <object; input> A object with ggplot-class
+#' @param var.x <character; proccessing>
+#' @param var.y <character; proccessing>
+#' @param var.group <character; proccessing>
+#' @param size <numeric; proccessing>
+#' @param var.col <character; proccessing>
+#' @param plot.col <character; proccessing>
+#' @param box.col <character; proccessing>
+#' @param str <character; proccessing>
+#' @param dn.surfix <character; output>
+#'
+#' @export
 
 
-#' Make many boxplots from tydy ordering sheet
+mf.boxplot_on_lines <- function(
+
+  data,
+  ggdata,
+  var.x,
+  var.y,
+  var.group,
+  scale.var.y,
+  var.caption,
+  size = 0.5,
+  var.col=NA,
+  plot.col="black",
+  box.col="gray",
+  str,
+  dn.surfix
+  ){
+
+  formula.facet <- sprintf("%s ~ %s", ".", str)
+
+  n.str <- length(
+    t(
+      unique(data[,str])
+      )
+    )
+
+  pdf(
+    sprintf(
+      "%s/%s_Panels_%s_var.X_%s_var.Y_%s.pdf",
+      dir.output,
+      dn.surfix,
+      str, var.x, var.y
+      ),
+    width = 10 * n.str
+  )
+
+  if(
+    !is.na(match(plot.col, "_"))
+    ) {
+    plot.color <-
+      scale_color_gradient(
+        low = strsplit(plot.col, "_")[[1]][1],
+        high = strsplit(plot.col, "_")[[1]][2]
+      )
+
+    jitter <- geom_point(
+      aes(
+        y=get(var.y), x=get(var.x), color=get(var.col)
+        ),
+      size = size,
+      width = 0.1,
+      position =
+        position_jitter(width = 0.1, height = 0)
+      )
+
+    ggline <- geom_line(
+      aes(
+        y=get(var.y), x=get(var.x), group=get(var.group), color=get(var.col)
+        ),
+      size = size,
+      width = 0.1,
+      position =
+        position_jitter(width = 0.1, height = 0)
+      )
+
+    }else{
+      plot.color <-
+        scale_color_gradient(
+          low = plot.col,
+          high = plot.col
+          )
+      }
+
+  plot.box_plot <-
+    ggdata +
+    geom_boxplot(
+      aes(
+        y   = get(var.y),
+        x   = get(var.x)
+      ),
+      color=box.col,
+      outlier.alpha = 0
+    ) +
+
+    jitter + ggline +
+
+    plot.color +
+    #      scale_y_log10() +
+    scale_x_discrete() +
+    facet_grid(
+      as.formula(formula.facet)
+    ) +
+    theme_bw() +
+    xlab(var.x) +
+    ylab(var.y) +
+    labs(
+      title = str,
+      caption = var.caption
+      )
+
+  scale.y <- unique(scale.var.y)
+
+  if(scale.y=="log10"){
+    plot(
+      plot.box_plot + scale_y_log10()
+    )
+  }
+
+  if(scale.y=="not_scale"){
+    plot(
+      plot.box_plot
+    )
+  }
+
+
+  dev.off()
+}
+
+
+#' Make many boxplots from tidy ordering sheet
 #'
 #' @import ggplot2
 #'
@@ -182,7 +317,7 @@ mf.wrap.boxplot <- function(D, data, ggdata, ...){
   }
 
 
-#' Make many scatterplots from tydy ordering sheet
+#' Make many scatterplots from tidy ordering sheet
 #'
 #' @import ggplot2
 #'
@@ -353,7 +488,7 @@ mf.scatterplot <- function(
 
 
 
-#' Make many scatterplots from tydy ordering sheet
+#' Make many scatterplots from tidy ordering sheet
 #'
 #' @import ggplot2
 #'
@@ -543,7 +678,7 @@ mf.scatterplot_with_missbox <- function(
   dev.off()
 }
 
-#' Make many scatterplots from tydy ordering sheet
+#' Make many scatterplots from tidy ordering sheet
 #'
 #' @import ggplot2
 #'
@@ -600,7 +735,7 @@ mf.wrap.scatterplot <- function(D, data, ggdata, df.beta, ...){
   }
 
 
-#' Make many scatterplots from tydy ordering sheet
+#' Make many scatterplots from tidy ordering sheet
 #'
 #' @import ggplot2
 #'

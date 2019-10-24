@@ -2,17 +2,35 @@
 % Please edit documentation in R/boxplots_ordering.R
 \name{mf.wrap.scatterplot}
 \alias{mf.wrap.scatterplot}
-\title{Make many boxplots from tydy ordering sheet}
+\title{Make many scatterplots from tidy ordering sheet}
 \usage{
-mf.wrap.scatterplot(D, data, ggdata, ...)
+mf.wrap.scatterplot(D, data, ggdata, df.beta, ...)
 }
 \arguments{
-\item{D}{<object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)}
-
-\item{data}{<object;> A data.frame-class object}
+\item{data}{<object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)}
 
 \item{ggdata}{<object; input> A object with ggplot-class}
+
+\item{var.x}{<character; proccessing>}
+
+\item{var.y}{<character; proccessing>}
+
+\item{trans.y}{<character> To be passed to scale_y_continuous(trans= )}
+
+\item{trans.x}{<character> To be passed to scale_x_continuous(trans= )}
+
+\item{size}{<numeric; proccessing>}
+
+\item{var.col}{<character; proccessing>}
+
+\item{plot.col}{<character> "color_color"(to be passed to scale_color_gradient) or "color"}
+
+\item{str}{<character; proccessing>}
+
+\item{dn.surfix}{<character; output>}
+
+\item{betas}{<character; proccessing> A numeric vector for coefficients of regression line}
 }
 \description{
-Make many boxplots from tydy ordering sheet
+Make many scatterplots from tidy ordering sheet
 }
