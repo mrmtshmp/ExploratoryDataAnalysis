@@ -207,6 +207,7 @@ mf.boxplot_on_lines <- function(
   if(
     !is.na(match(plot.col, "_"))
     ) {
+
     plot.color <-
       scale_color_gradient(
         low = strsplit(plot.col, "_")[[1]][1],
@@ -215,21 +216,31 @@ mf.boxplot_on_lines <- function(
 
     jitter <- geom_point(
       aes(
-        y=get(var.y), x=get(var.x), color=get(var.col)
+        y=get(var.y),
+        x=get(var.x),
+        color=get(var.col)
         ),
       size = size,
       width = 0.1,
       position =
         position_jitter(width = 0.1, height = 0)
       )
+    print("jitter ok")
 
     ggline <- geom_line(
       aes(
-        y=get(var.y), x=get(var.x), group=get(var.group), color=get(var.col)
+        y=get(var.y), x=get(var.x),
+        group=get(var.group),
+        color=get(var.col)
         ),
       position =
-        position_jitter(width = 0.1, height = 0)
+        position_jitter(
+          width = 0.1, height = 0
+          )
       )
+
+    print("line ok")
+
 
     }else{
       plot.color <-
@@ -249,7 +260,6 @@ mf.boxplot_on_lines <- function(
       color=box.col,
       outlier.alpha = 0
     ) +
-
     jitter + ggline +
 
     plot.color +
@@ -265,6 +275,8 @@ mf.boxplot_on_lines <- function(
       title = str,
       caption = var.caption
       )
+
+  print("layers ok")
 
   scale.y <- unique(scale.var.y)
 
