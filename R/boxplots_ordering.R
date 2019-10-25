@@ -48,8 +48,6 @@ mf.boxplot <- function(
       sprintf("%s ~ %s", ".", str)
     }
 
-  print(str)
-
 
   nx.str <- length(
     unique(as.character(data[,str]))
@@ -66,12 +64,6 @@ mf.boxplot <- function(
     }else{
       ny.str <- 1
     }
-
-  print(list(
-    unique(as.character(data[,str.x])),
-    unique(as.character(data[,str.y])),
-    unique(as.character(data[,var.x]))
-    ,nx.var))
 
 
   pdf(
