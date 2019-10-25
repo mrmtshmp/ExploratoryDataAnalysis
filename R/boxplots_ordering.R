@@ -30,16 +30,47 @@ mf.boxplot <- function(
   plot.col="black",
   box.col="gray",
   str,
+  str.x=NULL,
+  str.y=NULL,
   dn.surfix
   ){
 
-  formula.facet <- sprintf("%s ~ %s", ".", str)
+  if(!is.null(str.x) & !is.null(str.y)){
+    formula.facet <-
+      sprintf("%s ~ %s", str.y, str.x)
+    str <- str.x
 
-  n.str <- length(
-    t(
-      unique(data[,str])
+    }else{
+      if(is.null(str)){stop("argument 'str' is NULL.")}
+    formula.facet <-
+      sprintf("%s ~ %s", ".", str)
+    }
+
+  print(str)
+
+
+  nx.str <- length(
+    unique(as.character(data[,str]))
     )
-  )
+
+  nx.var <- length(
+    unique(as.character(data[,var.x]))
+    )
+
+  if(!is.null(str.y)){
+    ny.str <- length(
+      unique(as.character(data[,str.y]))
+      )
+    }else{
+      ny.str <- 1
+    }
+
+  print(list(
+    unique(as.character(data[,str.x])),
+    unique(as.character(data[,str.y])),
+    unique(as.character(data[,var.x]))
+    ,nx.var))
+
 
   pdf(
     sprintf(
@@ -48,8 +79,9 @@ mf.boxplot <- function(
       dn.surfix,
       str, var.x, var.y
     ),
-    width = 10 * n.str
-  )
+    width = 2.5 * nx.str *nx.var,
+    height = 5 * ny.str
+    )
 
   if(
     !is.na(match(plot.col, "_"))
@@ -169,7 +201,7 @@ mf.boxplot <- function(
 #' @export
 
 
-mf.boxplot_on_lines <- function(
+test.mf.boxplot_on_lines <- function(
 
   data,
   ggdata,
@@ -185,24 +217,16 @@ mf.boxplot_on_lines <- function(
   str,
   dn.surfix
   ){
-
+  print("start ok")
   formula.facet <- sprintf("%s ~ %s", ".", str)
-
+  print("facet ok")
   n.str <- length(
     t(
       unique(data[,str])
       )
     )
-
-  pdf(
-    sprintf(
-      "%s/%s_Panels_%s_var.X_%s_var.Y_%s.pdf",
-      dir.output,
-      dn.surfix,
-      str, var.x, var.y
-      ),
-    width = 10 * n.str
-    )
+  print("ntr ok")
+  print(plot.col)
 
   if(
     !is.na(match(plot.col, "_"))
@@ -213,7 +237,7 @@ mf.boxplot_on_lines <- function(
         low = strsplit(plot.col, "_")[[1]][1],
         high = strsplit(plot.col, "_")[[1]][2]
         )
-
+    print("color ok")
     jitter <- geom_point(
       aes(
         y=get(var.y),
@@ -248,6 +272,31 @@ mf.boxplot_on_lines <- function(
           low = plot.col,
           high = plot.col
           )
+      jitter <- geom_point(
+        aes(
+          y=get(var.y),
+          x=get(var.x),
+          color=plot.col
+          ),
+        size = size,
+        width = 0.1,
+        position =
+          position_jitter(width = 0.1, height = 0)
+      )
+      print("jitter ok")
+
+      ggline <- geom_line(
+        aes(
+          y=get(var.y), x=as.numeric(get(var.x)),
+          group=get(var.group),
+          color=plot.col
+        ),
+        position =
+          position_jitter(
+            width = 0.1, height = 0
+          )
+      )
+
       }
 
   plot.box_plot <-
@@ -260,8 +309,8 @@ mf.boxplot_on_lines <- function(
       color=box.col,
       outlier.alpha = 0
     ) +
-    jitter + ggline +
-
+    jitter +
+    ggline +
     plot.color +
     #      scale_y_log10() +
     scale_x_discrete() +
@@ -280,6 +329,15 @@ mf.boxplot_on_lines <- function(
 
   scale.y <- unique(scale.var.y)
 
+  pdf(
+    sprintf(
+      "%s/%s_Panels_%s_var.X_%s_var.Y_%s.pdf",
+      dir.output,
+      dn.surfix,
+      str, var.x, var.y
+    ),
+    width = 10 * n.str
+  )
   if(scale.y=="log10"){
     plot(
       plot.box_plot + scale_y_log10()
@@ -287,6 +345,7 @@ mf.boxplot_on_lines <- function(
   }
 
   if(scale.y=="not_scale"){
+    print(scale.var.y)
     plot(
       plot.box_plot
     )
