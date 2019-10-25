@@ -1,6 +1,7 @@
 #' Make many boxplots from tidy ordering sheet
 #'
 #' @import ggplot2
+#' @import ggbeeswarm
 #'
 #' @param data <object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)
 #' @param ggdata <object; input> A object with ggplot-class
@@ -171,6 +172,7 @@ mf.boxplot <- function(
 #' Make many boxplots on line plot from tidy ordering sheet
 #'
 #' @import ggplot2
+#' @import ggbeeswarm
 #'
 #' @param data <object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)
 #' @param ggdata <object; input> A object with ggplot-class
