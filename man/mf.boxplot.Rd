@@ -5,8 +5,9 @@
 \title{Make many boxplots from tidy ordering sheet}
 \usage{
 mf.boxplot(data, ggdata, var.x, var.y, scale.var.y, var.caption,
-  size = 0.5, var.col = NA, plot.col = "black", box.col = "gray",
-  str, str.x = NULL, str.y = NULL, dn.surfix)
+  ax.lab.x = "X", ax.lab.y = "Y", size = 0.5, var.col = NA,
+  plot.col = "black", box.col = "gray", str, str.x = NULL,
+  str.y = NULL, dn.surfix)
 }
 \arguments{
 \item{data}{<object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)}

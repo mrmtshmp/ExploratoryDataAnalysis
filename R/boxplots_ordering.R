@@ -25,6 +25,8 @@ mf.boxplot <- function(
   var.y,
   scale.var.y,
   var.caption,
+  ax.lab.x="X",
+  ax.lab.y="Y",
   size = 0.5,
   var.col=NA,
   plot.col="black",
@@ -156,8 +158,8 @@ mf.boxplot <- function(
         as.formula(formula.facet)
       ) +
       theme_bw() +
-      xlab(var.x) +
-      ylab(var.y) +
+      xlab(ax.lab.x) +
+      ylab(ax.lab.y) +
       labs(
         title = str,
         caption = var.caption
@@ -201,7 +203,7 @@ mf.boxplot <- function(
 #' @export
 
 
-test.mf.boxplot_on_lines <- function(
+mf.lineplot <- function(
 
   data,
   ggdata,
@@ -209,24 +211,52 @@ test.mf.boxplot_on_lines <- function(
   var.y,
   var.group,
   scale.var.y,
+  ax.breaks.x,
+  ax.lab.x=NULL,
+  ax.lab.y=NULL,
   var.caption,
   size = 0.5,
   var.col=NA,
   plot.col="black",
   box.col="gray",
   str,
+  str.x=NULL,
+  str.y=NULL,
   dn.surfix
-  ){
-  print("start ok")
-  formula.facet <- sprintf("%s ~ %s", ".", str)
-  print("facet ok")
-  n.str <- length(
-    t(
-      unique(data[,str])
+){
+
+  # Settings for facetting (size of PDF is included).
+
+  if(!is.null(str.x) & !is.null(str.y)){
+    formula.facet <-
+      sprintf("%s ~ %s", str.y, str.x)
+    str <- str.x
+
+  }else{
+    if(is.null(str)){stop("argument 'str' is NULL.")}
+    formula.facet <-
+      sprintf("%s ~ %s", ".", str)
+  }
+
+
+  nx.str <- length(
+    unique(as.character(data[,str]))
+  )
+
+  nx.var <- length(
+    unique(as.character(data[,var.x]))
+  )
+
+  if(!is.null(str.y)){
+    ny.str <- length(
+      unique(as.character(data[,str.y]))
       )
-    )
-  print("ntr ok")
-  print(plot.col)
+  }else{
+    ny.str <- 1
+  }
+
+
+  # Brewing colors (IF plot.col includes "_").
 
   if(
     !is.na(match(plot.col, "_"))
@@ -237,7 +267,7 @@ test.mf.boxplot_on_lines <- function(
         low = strsplit(plot.col, "_")[[1]][1],
         high = strsplit(plot.col, "_")[[1]][2]
         )
-    print("color ok")
+
     jitter <- geom_point(
       aes(
         y=get(var.y),
@@ -249,7 +279,6 @@ test.mf.boxplot_on_lines <- function(
       position =
         position_jitter(width = 0.1, height = 0)
       )
-    print("jitter ok")
 
     ggline <- geom_line(
       aes(
@@ -263,8 +292,8 @@ test.mf.boxplot_on_lines <- function(
           )
       )
 
-    print("line ok")
 
+    # ELSE{...} of IF(plot.col includes "_"){...}.--------------
 
     }else{
       plot.color <-
@@ -272,86 +301,83 @@ test.mf.boxplot_on_lines <- function(
           low = plot.col,
           high = plot.col
           )
+
       jitter <- geom_point(
         aes(
           y=get(var.y),
-          x=get(var.x),
-          color=plot.col
+          x=as.numeric(get(var.x))
           ),
         size = size,
         width = 0.1,
         position =
           position_jitter(width = 0.1, height = 0)
-      )
-      print("jitter ok")
+        )
+      # print("jitter ok")
 
       ggline <- geom_line(
         aes(
-          y=get(var.y), x=as.numeric(get(var.x)),
-          group=get(var.group),
-          color=plot.col
-        ),
+          y=get(var.y),
+          x=get(var.x),
+          group=get(var.group)
+          ),
         position =
           position_jitter(
             width = 0.1, height = 0
-          )
-      )
-
-      }
+            )
+        )
+    }
+  # Make ggplot object (ggdata + geom_boxplot() + geom_point() + geom_line() + scale_color_gradient() + ).--------------
 
   plot.box_plot <-
     ggdata +
-    geom_boxplot(
-      aes(
-        y   = get(var.y),
-        x   = get(var.x)
-        ),
-      color=box.col,
-      outlier.alpha = 0
-    ) +
     jitter +
     ggline +
-    plot.color +
-    #      scale_y_log10() +
-    scale_x_discrete() +
+    scale_x_continuous(breaks = ax.breaks.x) +
     facet_grid(
       as.formula(formula.facet)
-    ) +
+      ) +
     theme_bw() +
-    xlab(var.x) +
-    ylab(var.y) +
+    xlab(ax.lab.x) +
+    ylab(ax.lab.y) +
     labs(
       title = str,
       caption = var.caption
-      )
+      ) #+
+#    plot.color
 
   print("layers ok")
 
   scale.y <- unique(scale.var.y)
+
+
+
+  # Open and close PDF device. ----------------------------------------------
 
   pdf(
     sprintf(
       "%s/%s_Panels_%s_var.X_%s_var.Y_%s.pdf",
       dir.output,
       dn.surfix,
-      str, var.x, var.y
-    ),
-    width = 10 * n.str
-  )
+      str,
+      var.x,
+      var.y
+      ),
+    width = 2.5 * nx.str * nx.var,
+    height = 5 * ny.str
+    )
+
   if(scale.y=="log10"){
     plot(
       plot.box_plot + scale_y_log10()
-    )
+      )
   }
 
   if(scale.y=="not_scale"){
-    print(scale.var.y)
+#    return(plot.box_plot)
     plot(
       plot.box_plot
-    )
+      )
   }
-
-
   dev.off()
 }
 
