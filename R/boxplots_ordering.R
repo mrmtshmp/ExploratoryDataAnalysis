@@ -102,15 +102,6 @@ mf.boxplot <- function(
       width = 0.3
       )
 
-    # jitter <- geom_jitter(
-    #   aes(
-    #     y   = get(var.y),
-    #     x   = get(var.x),
-    #     color=get(var.col)
-    #     ),
-    #   size = size,
-    #   width = 0.3
-    #   )
     }else{
       plot.color <-
         scale_color_gradient(
@@ -222,8 +213,9 @@ mf.lineplot <- function(
   str,
   str.x=NULL,
   str.y=NULL,
+  dir.output = dir.output,
   dn.surfix
-){
+  ){
 
   # Settings for facetting (size of PDF is included).
 
@@ -345,7 +337,6 @@ mf.lineplot <- function(
       ) #+
 #    plot.color
 
-  print("layers ok")
 
   scale.y <- unique(scale.var.y)
 
