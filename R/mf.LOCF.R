@@ -1,9 +1,9 @@
 #' Simply do LOCF.
 #'
-#' @param paper <object; input> A data frame
-#' @param ink <object; input> A data frame
-#' @param mold <object; input> A data frame
-#' @param val.Visit <object; proccessing> A numeric vector
+#' @param paper <object; input> A data frame.
+#' @param ink <object; input> A data frame. Typically, same with paper. The columns for visits should be names "vis.INDICATOR-OF-VISITS".
+#' @param mold <object; input> A data frame. Missing is 1, otherwise 0. The columns for visits should be names "miss.INDICATOR-OF-VISITS".
+#' @param val.Visit <object; proccessing> A numeric vector. Indicators for Visits.
 #'
 #' @export
 
