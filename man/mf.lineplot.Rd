@@ -7,7 +7,7 @@
 mf.lineplot(data, ggdata, var.x, var.y, var.group, scale.var.y,
   ax.breaks.x, ax.lab.x = NULL, ax.lab.y = NULL, var.caption,
   size = 0.5, var.col = NA, plot.col = "black", box.col = "gray",
-  str, str.x = NULL, str.y = NULL, dir.output = dir.output,
+  str, str.x = NULL, str.y = NULL, .dir.output = dir.output,
   dn.surfix)
 }
 \arguments{

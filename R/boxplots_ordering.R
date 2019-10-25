@@ -34,7 +34,8 @@ mf.boxplot <- function(
   str,
   str.x=NULL,
   str.y=NULL,
-  dn.surfix
+  dn.surfix,
+  .dir.output=dir.output
   ){
 
   if(!is.null(str.x) & !is.null(str.y)){
@@ -69,7 +70,7 @@ mf.boxplot <- function(
   pdf(
     sprintf(
       "%s/%s_Panels_%s_var.X_%s_var.Y_%s.pdf",
-      dir.output,
+      .dir.output,
       dn.surfix,
       str, var.x, var.y
     ),
@@ -205,7 +206,7 @@ mf.lineplot <- function(
   str,
   str.x=NULL,
   str.y=NULL,
-  dir.output = dir.output,
+  .dir.output = dir.output,
   dn.surfix
   ){
 
@@ -339,7 +340,7 @@ mf.lineplot <- function(
   pdf(
     sprintf(
       "%s/%s_Panels_%s_var.X_%s_var.Y_%s.pdf",
-      dir.output,
+      .dir.output,
       dn.surfix,
       str,
       var.x,
