@@ -27,4 +27,5 @@ Imports:
     survival,
     rms,
     GGally,
-    tidyr
+    tidyr,
+    ggbeeswarm
