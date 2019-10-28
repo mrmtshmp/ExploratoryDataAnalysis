@@ -125,14 +125,14 @@ mf.boxplot <- function(
 
     plot.box_plot <-
       ggdata +
-      geom_boxplot(
-        aes(
-          y   = get(var.y),
-          x   = get(var.x)
-        ),
-        color=box.col,
-        outlier.alpha = 0
-      ) +
+      # geom_boxplot(
+      #   aes(
+      #     y   = get(var.y),
+      #     x   = get(var.x)
+      #   ),
+      #   color=box.col,
+      #   outlier.alpha = 0
+      # ) +
 
       jitter +
 
