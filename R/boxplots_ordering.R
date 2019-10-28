@@ -113,15 +113,16 @@ mf.boxplot <- function(
         col=plot.col
       )
 
-      # jitter <- geom_jitter(
-      #   aes(
-      #     y   = get(var.y),
-      #     x   = get(var.x)
-      #     ),
-      #   size = size,
-      #   width = 0.3,
-      #   col=plot.col
-      #   )
+      jitter <- geom_point(
+        aes(
+          y   = get(var.y),
+          x   = get(var.x)
+          ),
+        position_jitter(),
+        size = size,
+        width = 0.3,
+        col=plot.col
+        )
     }
 
     plot.box_plot <-
@@ -152,8 +153,6 @@ mf.boxplot <- function(
         )
 
   scale.y <- unique(scale.var.y)
-
-  print(plot.box_plot)
 
   if(scale.y=="log10"){
     plot(
