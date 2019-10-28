@@ -92,7 +92,8 @@ mf.boxplot <- function(
       aes(
         y=get(var.y), x=get(var.x), color=get(var.col)
         ),
-      size = size
+      size = size,
+      groupOnX = TRUE,na.rm = TRUE
       )
 
     }else{
@@ -106,6 +107,7 @@ mf.boxplot <- function(
         aes(
           y=get(var.y), x=get(var.x)
           ),
+        groupOnX = TRUE,na.rm = TRUE,
         size = size,
 #        width = 0.3,
         col=plot.col
