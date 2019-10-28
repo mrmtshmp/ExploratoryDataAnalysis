@@ -123,7 +123,6 @@ mf.boxplot <- function(
       #   col=plot.col
       #   )
     }
-  print(jitter)
 
     plot.box_plot <-
       ggdata +
@@ -154,6 +153,8 @@ mf.boxplot <- function(
 
   scale.y <- unique(scale.var.y)
 
+  print(plot.box_plot)
+
   if(scale.y=="log10"){
     plot(
       plot.box_plot + scale_y_log10()
@@ -161,7 +162,7 @@ mf.boxplot <- function(
     }
 
   if(scale.y=="not_scale"){
-    print(plot.box_plot)
+
     plot(
       plot.box_plot
       )
