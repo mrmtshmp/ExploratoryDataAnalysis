@@ -103,25 +103,25 @@ mf.boxplot <- function(
           high = plot.col
           )
 
-#       jitter <- geom_beeswarm(
-#         aes(
-#           y=get(var.y), x=get(var.x)
-#           ),
-#         groupOnX = TRUE,na.rm = TRUE,
-#         size = size,
-# #        width = 0.3,
-#         col=plot.col
-#       )
-
-      jitter <- geom_jitter(
+      jitter <- geom_beeswarm(
         aes(
-          y   = get(var.y),
-          x   = get(var.x)
+          y=get(var.y), x=get(var.x)
           ),
+        groupOnX = TRUE,na.rm = TRUE,
         size = size,
-        width = 0.3,
+#        width = 0.3,
         col=plot.col
-        )
+      )
+
+      # jitter <- geom_jitter(
+      #   aes(
+      #     y   = get(var.y),
+      #     x   = get(var.x)
+      #     ),
+      #   size = size,
+      #   width = 0.3,
+      #   col=plot.col
+      #   )
     }
   print(jitter)
 
@@ -161,11 +161,11 @@ mf.boxplot <- function(
     }
 
   if(scale.y=="not_scale"){
+    print(plot.box_plot)
     plot(
       plot.box_plot
       )
     }
-
 
   dev.off()
 }
