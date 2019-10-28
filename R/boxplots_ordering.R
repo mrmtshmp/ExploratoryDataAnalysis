@@ -93,7 +93,8 @@ mf.boxplot <- function(
         y=get(var.y), x=get(var.x), color=get(var.col)
         ),
       size = size,
-      width = 0.3
+      col="black",
+      alpha=1
       )
 
     }else{
@@ -108,8 +109,8 @@ mf.boxplot <- function(
           y=get(var.y), x=get(var.x)
           ),
         size = size,
-#        width = 0.3,
-        col=plot.col
+        col="black",#plot.col,
+        alpha=1
       )
 
       # jitter <- geom_jitter(
@@ -125,14 +126,14 @@ mf.boxplot <- function(
 
     plot.box_plot <-
       ggdata +
-      # geom_boxplot(
-      #   aes(
-      #     y   = get(var.y),
-      #     x   = get(var.x)
-      #   ),
-      #   color=box.col,
-      #   outlier.alpha = 0
-      # ) +
+      geom_boxplot(
+        aes(
+          y   = get(var.y),
+          x   = get(var.x)
+        ),
+        color=box.col,
+        outlier.alpha = 0
+      ) +
 
       jitter +
 
