@@ -88,13 +88,23 @@ mf.boxplot <- function(
         high = strsplit(plot.col, "_")[[1]][2]
         )
 
-    jitter <- geom_beeswarm(
+    jitter <- geom_point(
       aes(
-        y=get(var.y), x=get(var.x), color=get(var.col)
+        y   = get(var.y),
+        x   = get(var.x),
+        color=get(var.col)
         ),
-      size = size,
-      groupOnX = TRUE,na.rm = TRUE
+      position = position_quasirandom(groupOnX = TRUE),
+      size = size
       )
+
+    # jitter <- geom_beeswarm(
+    #   aes(
+    #     y=get(var.y), x=get(var.x), color=get(var.col)
+    #     ),
+    #   size = size,
+    #   groupOnX = TRUE,na.rm = TRUE
+    #   )
 
     }else{
       plot.color <-
@@ -120,7 +130,6 @@ mf.boxplot <- function(
           ),
         position = position_quasirandom(groupOnX = TRUE),
         size = size,
-        width = 0.3,
         col=plot.col
         )
     }
