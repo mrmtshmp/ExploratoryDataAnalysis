@@ -103,22 +103,22 @@ mf.boxplot <- function(
           high = plot.col
           )
 
-      jitter <- geom_beeswarm(
-        aes(
-          y=get(var.y), x=get(var.x)
-          ),
-        groupOnX = TRUE,na.rm = TRUE,
-        size = size,
-#        width = 0.3,
-        col=plot.col
-      )
+#       jitter <- geom_beeswarm(
+#         aes(
+#           y=get(var.y), x=get(var.x)
+#           ),
+#         groupOnX = TRUE,na.rm = TRUE,
+#         size = size,
+# #        width = 0.3,
+#         col=plot.col
+#       )
 
       jitter <- geom_point(
         aes(
           y   = get(var.y),
           x   = get(var.x)
           ),
-        position_jitter(),
+        position = position_quasirandom(groupOnX = TRUE),
         size = size,
         width = 0.3,
         col=plot.col
