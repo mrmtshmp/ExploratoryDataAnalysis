@@ -28,4 +28,5 @@ Imports:
     rms,
     GGally,
     tidyr,
-    ggbeeswarm
+    ggbeeswarm,
+    magrittr

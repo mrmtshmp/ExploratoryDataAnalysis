@@ -4,17 +4,10 @@
 \alias{mf.SRIntporbyWideData}
 \title{Interpolation.}
 \usage{
-mf.SRIntporbyWideData(paper = ADS.measurement, ink = ADS.measurement,
-  mold = df.miss.measurement, val.Visit)
+mf.SRIntporbyWideData(data)
 }
 \arguments{
-\item{paper}{<object; input> A data frame.}
-
-\item{ink}{<object; input> A data frame. Typically, same with paper. The columns for visits should be names "vis.INDICATOR-OF-VISITS".}
-
-\item{mold}{<object; input> A data frame. Missing is 1, otherwise 0. The columns for visits should be names "miss.INDICATOR-OF-VISITS".}
-
-\item{val.Visit}{<object; proccessing> A numeric vector. Indicators for Visits.}
+\item{data}{}
 }
 \description{
 Interpolation.

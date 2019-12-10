@@ -1,22 +1,17 @@
 #' Interpolation.
+#' @import  magrittr
 #'
-#' @param paper <object; input> A data frame.
-#' @param ink <object; input> A data frame. Typically, same with paper. The columns for visits should be names "vis.INDICATOR-OF-VISITS".
-#' @param mold <object; input> A data frame. Missing is 1, otherwise 0. The columns for visits should be names "miss.INDICATOR-OF-VISITS".
-#' @param val.Visit <object; proccessing> A numeric vector. Indicators for Visits.
+#' @param data
 #'
 #' @export
 
 mf.SRIntporbyWideData <-
   function(
-    paper = ADS.measurement,
-    ink   = ADS.measurement,
-    mold  = df.miss.measurement,
-    val.Visit
-  ){
-    miss_which <-
+    data
+    ){
+    result <-
       apply(
-        test,
+        data,
         MARGIN = 1,
         function(vec){
           pos_miss <- which(is.na(vec))
@@ -29,18 +24,5 @@ mf.SRIntporbyWideData <-
           }
         ) %>%
       t()
-
-    colnames(inked_mold) <- sprintf("%s.%s", "vis", val.Visit)
-
-    inked_mold[
-      !is.na(
-        paper[,sprintf("%s.%s", "vis", val.Visit)]
-      ) &
-        is.na(inked_mold)
-      ] <- 0
-
-    paper[is.na(paper)] <- 0
-    paper[,sprintf("%s.%s", "vis", val.Visit)] <-
-      paper[,sprintf("%s.%s", "vis", val.Visit)] + inked_mold
-    return(paper)
+    return(result)
   }
