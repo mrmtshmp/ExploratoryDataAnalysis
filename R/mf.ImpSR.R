@@ -14,23 +14,6 @@ mf.SRIntporbyWideData <-
     mold  = df.miss.measurement,
     val.Visit
   ){
-    DUMMY <- rep(0, nrow(ink))
-    names(DUMMY) <- "Dummy"
-    ink   <-
-      cbind(
-        DUMMY,
-        ink[
-          ,
-          sprintf("%s.%s", "vis", val.Visit[1:(length(val.Visit)-1)])
-          ]
-      )
-    mold  <-
-      mold[
-        ,
-        sprintf("%s.%s", "miss", val.Visit)
-        ]
-
-
     miss_which <-
       apply(
         test,
