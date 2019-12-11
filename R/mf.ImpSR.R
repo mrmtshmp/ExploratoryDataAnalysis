@@ -16,7 +16,10 @@ mf.SRIntporbyWideData <-
         function(vec){
           pos_miss <- which(is.na(vec))
           if(length(pos_miss) > 0){
-            if(min(pos_miss) > 1 & max(pos_miss) < length(vec)){
+            if(
+              min(match(names(pos_miss),col.visit)) > 1 &
+              max(match(names(pos_miss),col.visit)) < length(col.visit)
+              ){
               vec[pos_miss] <-
                 (as.numeric(vec[pos_miss-1]) +
                    as.numeric(vec[pos_miss+1])
