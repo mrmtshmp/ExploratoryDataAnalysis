@@ -31,12 +31,16 @@ mf.SRIntporbyWideData <-
           }
         ) %>%
       t()
+    result <- data.frame(result)
+    print(head(result))
     for(i in 1:length(data)){
       class_i <- class(data[,i])
-      print(class_i)
-      print(sprintf("result[,i] <- as.%s(result[,i])", class(data[,i])))
+      print(sprintf("result[,i] <- as.%s(result[,i])", class_i))
       eval(
-        parse(text=sprintf("result[,i] <- as.%s(result[,i])", class(data[,i])))
+        parse(
+          text = sprintf(
+            "result[,i] <- as.%s(result[,i])", class_i)
+          )
         )
       eval(
         parse(text=sprintf("print(result[,i])"))
