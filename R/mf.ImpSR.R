@@ -2,12 +2,13 @@
 #' @import  magrittr
 #'
 #' @param data A data.frame-class object.
+#' @param col.visit A character vector.
 #'
 #' @export
 
 mf.SRIntporbyWideData <-
   function(
-    data
+    data, col.visit
     ){
     result <-
       apply(

@@ -4,10 +4,12 @@
 \alias{mf.SRIntporbyWideData}
 \title{Interpolation.}
 \usage{
-mf.SRIntporbyWideData(data)
+mf.SRIntporbyWideData(data, col.visit)
 }
 \arguments{
 \item{data}{A data.frame-class object.}
+
+\item{col.visit}{A character vector.}
 }
 \description{
 Interpolation.
