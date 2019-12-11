@@ -7,7 +7,7 @@
 mf.SRIntporbyWideData(data)
 }
 \arguments{
-\item{data}{}
+\item{data}{A data.frame-class object.}
 }
 \description{
 Interpolation.
