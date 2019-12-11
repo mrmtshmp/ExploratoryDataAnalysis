@@ -32,7 +32,7 @@ mf.SRIntporbyWideData <-
       t()
     for(i in 1:length(data)){
       class_i <- class(data[,i])
-      eval(sprintf("result[,i] <- as.%s", class(data[,i])))
+      eval(sprintf("result[,i] <- as.%s(result[,i])", class(data[,i])))
       print(class(result[,i]))
       }
     return(result)
