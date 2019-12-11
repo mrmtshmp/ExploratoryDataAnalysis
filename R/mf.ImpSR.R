@@ -31,7 +31,7 @@ mf.SRIntporbyWideData <-
           }
         ) %>%
       t()
-    result <- data.frame(result)
+    result <- data.frame(result,stringsAsFactors = FALSE)
     print(head(result))
     for(i in 1:length(data)){
       class_i <- class(data[,i])
