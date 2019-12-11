@@ -35,9 +35,9 @@ mf.SRIntporbyWideData <-
       class_i <- class(data[,i])
       print(class_i)
       print(sprintf("result[,i] <- as.%s(result[,i])", class(data[,i])))
-      eval(
+
         parse(text=sprintf("result[,i] <- as.%s(result[,i])", class(data[,i])))
-        )
+
       print(class(result[,i]))
       }
     return(result)
