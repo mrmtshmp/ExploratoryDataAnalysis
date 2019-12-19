@@ -79,9 +79,7 @@ mf.boxplot <- function(
     height = 5 * ny.str
     )
 
-  if(
-    !is.na(match(plot.col, "_"))
-    ) {
+  if (length(grep("_", plot.col))) {
     plot.color <-
       scale_color_gradient(
         low = strsplit(plot.col, "_")[[1]][1],
