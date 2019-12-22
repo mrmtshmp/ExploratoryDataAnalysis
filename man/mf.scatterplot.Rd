@@ -4,22 +4,10 @@
 \alias{mf.scatterplot}
 \title{Make many scatterplots from tidy ordering sheet}
 \usage{
-mf.scatterplot(
-  data,
-  ggdata,
-  var.x,
-  var.y,
-  trans.y = c("log10", "identity"),
-  trans.x = c("log10", "identity"),
-  size = 0.5,
-  var.col = NA,
-  plot.col = "black",
-  line.col = "gray",
-  cont.col = FALSE,
-  str,
-  dn.surfix,
-  betas
-)
+mf.scatterplot(data, ggdata, var.x, var.y, trans.y = c("log10",
+  "identity"), trans.x = c("log10", "identity"), size = 0.5,
+  var.col = NA, plot.col = "black", line.col = "gray",
+  cont.col = FALSE, str, dn.surfix, betas)
 }
 \arguments{
 \item{data}{<object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)}

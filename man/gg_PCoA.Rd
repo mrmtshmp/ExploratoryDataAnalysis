@@ -4,20 +4,10 @@
 \alias{gg_PCoA}
 \title{PCoA plot via cmdscale}
 \usage{
-gg_PCoA(
-  distmat,
-  groups,
-  ggplot_theme = summ_plot_theme,
-  axes = c("CS1", "CS2"),
-  overlay = FALSE,
-  labels = "sample_ID",
-  title = "PCoA plot using by MDS",
-  legend.name = "Cluster",
-  jitter.v = 0.3,
-  jitter.h = 0.3,
-  size = 2,
-  alpha = 0.7
-)
+gg_PCoA(distmat, groups, ggplot_theme = summ_plot_theme,
+  axes = c("CS1", "CS2"), overlay = FALSE, labels = "sample_ID",
+  title = "PCoA plot using by MDS", legend.name = "Cluster",
+  jitter.v = 0.3, jitter.h = 0.3, size = 2, alpha = 0.7)
 }
 \arguments{
 \item{distmat}{<object; input data; mandatory> An object with dist-class.}

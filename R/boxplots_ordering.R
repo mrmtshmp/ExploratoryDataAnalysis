@@ -4,7 +4,6 @@
 #' @import ggbeeswarm
 #'
 #' @param data <object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)
-#' @param ggdata <object; input> A object with ggplot-class
 #' @param var.x <character; proccessing>
 #' @param var.y <character; proccessing>
 #' @param size <numeric; proccessing>
@@ -21,7 +20,7 @@
 mf.boxplot <- function(
 
   data,
-  ggdata,
+  #  ggdata,
   var.x,
   var.y,
   scale.var.y,
@@ -31,41 +30,51 @@ mf.boxplot <- function(
   size = 0.5,
   var.col=NA,
   plot.col="black",
+  plot.alpha=1,
+  plot.y_intcpt.alpha=0,
+  plot.y_intcpt=1,
   box.col="gray",
   str,
   str.x=NULL,
   str.y=NULL,
   dn.surfix,
   .dir.output=dir.output
-  ){
+){
+  print(var.x)
+  print(var.y)
+
+  ggdata <- data %>%
+    ggplot(aes(x=as.factor(get(var.x)), y=get(var.y)))
+
+  print(ggdata)
 
   if(!is.null(str.x) & !is.null(str.y)){
     formula.facet <-
       sprintf("%s ~ %s", str.y, str.x)
     str <- str.x
 
-    }else{
-      if(is.null(str)){stop("argument 'str' is NULL.")}
+  }else{
+    if(is.null(str)){stop("argument 'str' is NULL.")}
     formula.facet <-
       sprintf("%s ~ %s", ".", str)
-    }
+  }
 
 
   nx.str <- length(
     unique(as.character(data[,str]))
-    )
+  )
 
   nx.var <- length(
     unique(as.character(data[,var.x]))
-    )
+  )
 
   if(!is.null(str.y)){
     ny.str <- length(
       unique(as.character(data[,str.y]))
-      )
-    }else{
-      ny.str <- 1
-    }
+    )
+  }else{
+    ny.str <- 1
+  }
 
 
   pdf(
@@ -77,24 +86,24 @@ mf.boxplot <- function(
     ),
     width = 2.5 * nx.str *nx.var,
     height = 5 * ny.str
-    )
+  )
 
   if (length(grep("_", plot.col))) {
     plot.color <-
       scale_color_gradient(
         low = strsplit(plot.col, "_")[[1]][1],
         high = strsplit(plot.col, "_")[[1]][2]
-        )
+      )
 
     jitter <- geom_point(
       aes(
         y   = get(var.y),
-        x   = get(var.x),
+        x   = as.factor(get(var.x)),
         color=get(var.col)
-        ),
+      ),
       position = position_quasirandom(groupOnX = TRUE),
-      size = size
-      )
+      size = size, alpha=plot.alpha
+    )
 
     # jitter <- geom_beeswarm(
     #   aes(
@@ -104,75 +113,82 @@ mf.boxplot <- function(
     #   groupOnX = TRUE,na.rm = TRUE
     #   )
 
-    }else{
-      plot.color <-
-        scale_color_gradient(
-          low = plot.col,
-          high = plot.col
-          )
+  }else{
+    plot.color <-
+      scale_color_gradient(
+        low = plot.col,
+        high = plot.col
+      )
 
-#       jitter <- geom_beeswarm(
-#         aes(
-#           y=get(var.y), x=get(var.x)
-#           ),
-#         groupOnX = TRUE,na.rm = TRUE,
-#         size = size,
-# #        width = 0.3,
-#         col=plot.col
-#       )
+    #       jitter <- geom_beeswarm(
+    #         aes(
+    #           y=get(var.y), x=get(var.x)
+    #           ),
+    #         groupOnX = TRUE,na.rm = TRUE,
+    #         size = size,
+    # #        width = 0.3,
+    #         col=plot.col
+    #       )
 
-      jitter <- geom_point(
-        aes(
-          y   = get(var.y),
-          x   = get(var.x)
-          ),
-        position = position_quasirandom(groupOnX = TRUE),
-        size = size,
-        col=plot.col
-        )
-    }
+    jitter <- geom_point(
+      aes(
+        y   = get(var.y),
+        x   = as.factor(get(var.x))
+      ),
+      position = position_quasirandom(groupOnX = TRUE),
+      size = size,
+      col=plot.col,
+      alpha=plot.alpha
+    )
+  }
 
-    plot.box_plot <-
-      ggdata +
-      geom_boxplot(
-        aes(
-          y   = get(var.y),
-          x   = get(var.x)
-        ),
-        color=box.col,
-        outlier.alpha = 0
-      ) +
+  plot.box_plot <-
+    ggdata +
+    geom_boxplot(
+      aes(
+        y   = get(var.y),
+        x   = as.factor(get(var.x))
+      ),
+      color=box.col,
+      outlier.alpha = 0
+    ) +
 
-      jitter +
+    jitter +
 
-      plot.color +
-#      scale_y_log10() +
-      scale_x_discrete() +
-      facet_grid(
-        as.formula(formula.facet)
-      ) +
-      theme_bw() +
-      xlab(ax.lab.x) +
-      ylab(ax.lab.y) +
-      labs(
-        title = str,
-        caption = var.caption
-        )
+    geom_hline(
+      yintercept = plot.y_intcpt,
+      alpha = plot.y_intcpt.alpha,
+      size=0.5, col="black"
+    ) +
+
+    plot.color +
+    #      scale_y_log10() +
+    scale_x_discrete() +
+    facet_grid(
+      as.formula(formula.facet)
+    ) +
+    theme_bw() +
+    xlab(ax.lab.x) +
+    ylab(ax.lab.y) +
+    labs(
+      title = str,
+      caption = var.caption
+    )
 
   scale.y <- unique(scale.var.y)
 
   if(scale.y=="log10"){
     plot(
       plot.box_plot + scale_y_log10()
-      )
-    }
+    )
+  }
 
   if(scale.y=="not_scale"){
 
     plot(
       plot.box_plot
-      )
-    }
+    )
+  }
 
   dev.off()
 }
@@ -219,7 +235,7 @@ mf.lineplot <- function(
   str.y=NULL,
   .dir.output = dir.output,
   dn.surfix
-  ){
+){
 
   # Settings for facetting (size of PDF is included).
 
@@ -246,7 +262,7 @@ mf.lineplot <- function(
   if(!is.null(str.y)){
     ny.str <- length(
       unique(as.character(data[,str.y]))
-      )
+    )
   }else{
     ny.str <- 1
   }
@@ -256,72 +272,72 @@ mf.lineplot <- function(
 
   if(
     !is.na(match(plot.col, "_"))
-    ) {
+  ) {
 
     plot.color <-
       scale_color_gradient(
         low = strsplit(plot.col, "_")[[1]][1],
         high = strsplit(plot.col, "_")[[1]][2]
-        )
+      )
 
     jitter <- geom_point(
       aes(
         y=get(var.y),
         x=get(var.x),
         color=get(var.col)
-        ),
+      ),
       size = size,
       width = 0.1,
       position =
         position_jitter(width = 0.1, height = 0)
-      )
+    )
 
     ggline <- geom_line(
       aes(
         y=get(var.y), x=get(var.x),
         group=get(var.group),
         color=get(var.col)
-        ),
+      ),
       position =
         position_jitter(
           width = 0.1, height = 0
-          )
-      )
+        )
+    )
 
 
     # ELSE{...} of IF(plot.col includes "_"){...}.--------------
 
-    }else{
-      plot.color <-
-        scale_color_gradient(
-          low = plot.col,
-          high = plot.col
-          )
+  }else{
+    plot.color <-
+      scale_color_gradient(
+        low = plot.col,
+        high = plot.col
+      )
 
-      jitter <- geom_point(
-        aes(
-          y=get(var.y),
-          x=as.numeric(get(var.x))
-          ),
-        size = size,
-        width = 0.1,
-        position =
-          position_jitter(width = 0.1, height = 0)
-        )
-      # print("jitter ok")
+    jitter <- geom_point(
+      aes(
+        y=get(var.y),
+        x=as.numeric(get(var.x))
+      ),
+      size = size,
+      width = 0.1,
+      position =
+        position_jitter(width = 0.1, height = 0)
+    )
+    # print("jitter ok")
 
-      ggline <- geom_line(
-        aes(
-          y=get(var.y),
-          x=get(var.x),
-          group=get(var.group)
-          ),
-        position =
-          position_jitter(
-            width = 0.1, height = 0
-            )
+    ggline <- geom_line(
+      aes(
+        y=get(var.y),
+        x=get(var.x),
+        group=get(var.group)
+      ),
+      position =
+        position_jitter(
+          width = 0.1, height = 0
         )
-    }
+    )
+  }
   # Make ggplot object (ggdata + geom_boxplot() + geom_point() + geom_line() + scale_color_gradient() + ).--------------
 
   plot.box_plot <-
@@ -331,15 +347,15 @@ mf.lineplot <- function(
     scale_x_continuous(breaks = ax.breaks.x) +
     facet_grid(
       as.formula(formula.facet)
-      ) +
+    ) +
     theme_bw() +
     xlab(ax.lab.x) +
     ylab(ax.lab.y) +
     labs(
       title = str,
       caption = var.caption
-      ) #+
-#    plot.color
+    ) #+
+  #    plot.color
 
 
   scale.y <- unique(scale.var.y)
@@ -356,22 +372,22 @@ mf.lineplot <- function(
       str,
       var.x,
       var.y
-      ),
+    ),
     width = 2.5 * nx.str * nx.var,
     height = 5 * ny.str
-    )
+  )
 
   if(scale.y=="log10"){
     plot(
       plot.box_plot + scale_y_log10()
-      )
+    )
   }
 
   if(scale.y=="not_scale"){
-#    return(plot.box_plot)
+    #    return(plot.box_plot)
     plot(
       plot.box_plot
-      )
+    )
   }
   dev.off()
 }
@@ -404,7 +420,7 @@ mf.wrap.boxplot <- function(D, data, ggdata, ...){
     var.x=.var.x, var.y=.var.y, scale.var.y = .scale.var.y, var.caption = .var.caption,
     size = .size,var.col=.var.col, plot.col = .plot.col, box.col = .box.col,
     str=.str, dn.surfix = .dn.surfix, ...)
-  }
+}
 
 
 #' Make many scatterplots from tidy ordering sheet
@@ -440,59 +456,59 @@ mf.scatterplot <- function(
   str,
   dn.surfix,
   betas
-  ){
+){
 
 
   formula.facet <- sprintf(
     "%s ~ %s", ".",
     str
-    )
+  )
 
   if(
     !is.na(match(plot.col, "_"))
-    ) {
+  ) {
     plot.color <-
       scale_color_gradient(
         low = strsplit(plot.col, "_")[[1]][1],
         high = strsplit(plot.col, "_")[[1]][2]
-        )
+      )
 
     points <- geom_point(
       aes(
         y   = get(var.y),
         x   = get(var.x),
         color=get(var.col)
-        ),
+      ),
       size = size,
       width = 0.3
+    )
+  }else{
+    plot.color <-
+      scale_color_gradient(
+        low = plot.col,
+        high = plot.col
       )
-    }else{
-      plot.color <-
-        scale_color_gradient(
-          low = plot.col,
-          high = plot.col
-          )
 
-      point <- geom_point(
-        aes(
-          y   = get(var.y),
-          x   = get(var.x)
-          ),
-        size = size,
-        width = 0.3,
-        col=plot.col
-        )
-    }
+    point <- geom_point(
+      aes(
+        y   = get(var.y),
+        x   = get(var.x)
+      ),
+      size = size,
+      width = 0.3,
+      col=plot.col
+    )
+  }
 
   line_0 <- geom_abline(
     intercept = betas[,"b0"], #+ betas[,"b2"],
     slope = betas[,"b1"] #+ betas[,"b3"]
-    )
+  )
 
   line_1 <- geom_abline(
     intercept = betas[,"b0"] + betas[,"b2"],
     slope = betas[,"b1"] + betas[,"b3"]
-    )
+  )
 
   trans.y <- trans.y
   trans.x <- trans.x
@@ -500,8 +516,8 @@ mf.scatterplot <- function(
   n.str <- length(
     t(
       unique(data[,str])
-      )
     )
+  )
   print(sprintf("strata=%s", n.str))
 
   pdf(
@@ -509,9 +525,9 @@ mf.scatterplot <- function(
       "%s/%s.pdf",
       dir.output,
       dn.surfix
-      ),
+    ),
     width = 7 * n.str
-    )
+  )
 
   p =
     ggdata +
@@ -524,9 +540,9 @@ mf.scatterplot <- function(
       aes(
         y   = get(var.y),
         x   = get(var.x)
-        ),
+      ),
       color='gray', alpha=0.6, stat =
-      ) + scale_colour_gradient(low="green",high="red") +
+    ) + scale_colour_gradient(low="green",high="red") +
 
     plot.color +
     theme_bw()
@@ -695,18 +711,18 @@ mf.scatterplot_with_missbox <- function(
 
   if(
     is.null(betas)
-    ){
+  ){
     line_0 <- geom_abline(
       intercept = betas[,"b0"], #+ betas[,"b2"],
       slope = betas[,"b1"] #+ betas[,"b3"]
-      )
+    )
     line_1 <- geom_abline(
       intercept = betas[,"b0"] + betas[,"b2"],
       slope = betas[,"b1"] + betas[,"b3"]
-      )
+    )
 
     p <- p + line_0 + line_1
-    }
+  }
 
   if(
     (trans.x=="NoScale") &
@@ -722,7 +738,7 @@ mf.scatterplot_with_missbox <- function(
   ){
     print(" Y scaled")
     p1 <- p +
-        scale_y_continuous(trans=trans.y)
+      scale_y_continuous(trans=trans.y)
   }
 
   if(
@@ -731,7 +747,7 @@ mf.scatterplot_with_missbox <- function(
   ){
     print(" X scaled")
     p1 <- p +
-        scale_x_continuous(trans=trans.x)
+      scale_x_continuous(trans=trans.x)
   }
 
   if(
@@ -741,8 +757,8 @@ mf.scatterplot_with_missbox <- function(
     print("Both scaled")
 
     p1 <- p +
-        scale_y_continuous(trans=trans.x) +
-        scale_x_continuous(trans=trans.x)
+      scale_y_continuous(trans=trans.x) +
+      scale_x_continuous(trans=trans.x)
   }
   p2 <- mf.boxplot(
     data,
@@ -757,14 +773,14 @@ mf.scatterplot_with_missbox <- function(
     box.col="gray",
     str,
     dn.surfix
-    )
+  )
   g1 <- ggplotGrob(p1)
   g2 <- ggplotGrob(p2)
   g <- cbind(g1, g2, size = "first")
   print(class(g))
   g$widths = grid::unit.pmax(g1$widths, g2$widths)
   plot(g)
-#  gridExtra::grid.arrange(p1, p2, nrow = 1)
+  #  gridExtra::grid.arrange(p1, p2, nrow = 1)
   dev.off()
 }
 
@@ -821,8 +837,8 @@ mf.wrap.scatterplot <- function(D, data, ggdata, df.beta, ...){
     dn.surfix= .dn.surfix,
     betas = .betas,
     ...
-    )
-  }
+  )
+}
 
 
 #' Make many scatterplots from tidy ordering sheet
