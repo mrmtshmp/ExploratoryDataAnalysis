@@ -6,11 +6,13 @@
 #' @param data <object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)
 #' @param var.x <character; proccessing>
 #' @param var.y <character; proccessing>
+#' @param scale.var.y <character; proccessing>
 #' @param size <numeric; proccessing>
 #' @param var.col <character; proccessing>
 #' @param plot.col <character; proccessing>
 #' @param box.col <character; proccessing>
 #' @param str <character; proccessing>
+#' @param theme.input ggplot2::theme-class object
 #' @param dn.surfix <character; output>
 #'
 #' @export
@@ -23,7 +25,7 @@ mf.boxplot <- function(
   #  ggdata,
   var.x,
   var.y,
-  scale.var.y,
+  scale.var.y='not_scale',
   var.caption,
   ax.lab.x="X",
   ax.lab.y="Y",
@@ -34,6 +36,7 @@ mf.boxplot <- function(
   plot.y_intcpt.alpha=0,
   plot.y_intcpt=1,
   box.col="gray",
+  theme.input = theme_bw(),
   str,
   str.x=NULL,
   str.y=NULL,
@@ -168,6 +171,7 @@ mf.boxplot <- function(
       as.formula(formula.facet)
     ) +
     theme_bw() +
+    theme.input +
     xlab(ax.lab.x) +
     ylab(ax.lab.y) +
     labs(
@@ -192,7 +196,6 @@ mf.boxplot <- function(
 
   dev.off()
 }
-
 
 #' Make many boxplots on line plot from tidy ordering sheet
 #'

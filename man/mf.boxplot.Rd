@@ -7,8 +7,8 @@
 mf.boxplot(data, var.x, var.y, scale.var.y, var.caption, ax.lab.x = "X",
   ax.lab.y = "Y", size = 0.5, var.col = NA, plot.col = "black",
   plot.alpha = 1, plot.y_intcpt.alpha = 0, plot.y_intcpt = 1,
-  box.col = "gray", str, str.x = NULL, str.y = NULL, dn.surfix,
-  .dir.output = dir.output)
+  box.col = "gray", theme.input = theme_bw(), str, str.x = NULL,
+  str.y = NULL, dn.surfix, .dir.output = dir.output)
 }
 \arguments{
 \item{data}{<object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)}
@@ -28,8 +28,6 @@ mf.boxplot(data, var.x, var.y, scale.var.y, var.caption, ax.lab.x = "X",
 \item{str}{<character; proccessing>}
 
 \item{dn.surfix}{<character; output>}
-
-\item{ggdata}{<object; input> A object with ggplot-class}
 }
 \description{
 Make many boxplots from tidy ordering sheet
