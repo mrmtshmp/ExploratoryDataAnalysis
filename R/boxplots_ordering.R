@@ -67,11 +67,11 @@ mf.boxplot <- function(
 
   nx.str <- length(
     unique(as.character(data[,str]))
-  )
+    )
 
   nx.var <- length(
     unique(as.character(data[,var.x]))
-  )
+    )
 
   if(!is.null(str.y)){
     ny.str <- length(
@@ -82,6 +82,8 @@ mf.boxplot <- function(
   }
 
 
+  if(is.na(width.box)){width.box <- 1}
+
   pdf(
     sprintf(
       "%s/%s_Panels_%s_var.X_%s_var.Y_%s.pdf",
@@ -89,7 +91,7 @@ mf.boxplot <- function(
       dn.surfix,
       str, var.x, var.y
     ),
-    width = 2.5 * nx.str *nx.var,
+    width = 2.5 * nx.str *nx.var *width.box,
     height = 5 * ny.str
   )
 
