@@ -26,9 +26,9 @@ mf.boxplot <- function(
   var.x,
   var.y,
   scale.var.y='not_scale',
-  var.caption,
-  ax.lab.x="X",
-  ax.lab.y="Y",
+  var.caption ='',
+  ax.lab.x ="X",
+  ax.lab.y ="Y",
   size = 0.5,
   var.col=NA,
   plot.col="black",
@@ -36,6 +36,7 @@ mf.boxplot <- function(
   plot.y_intcpt.alpha=0,
   plot.y_intcpt=1,
   box.col="gray",
+  beeswarm = FALSE,
   theme.input = theme_bw(),
   str,
   str.x=NULL,
@@ -98,6 +99,16 @@ mf.boxplot <- function(
         high = strsplit(plot.col, "_")[[1]][2]
       )
 
+    if(beeswarm){
+      jitter <- geom_beeswarm(
+        aes(
+          y   = get(var.y),
+          x   = as.factor(get(var.x)),
+          color=get(var.col)
+        ),
+        size = size, alpha=plot.alpha
+      )
+    }else{
     jitter <- geom_point(
       aes(
         y   = get(var.y),
@@ -107,6 +118,7 @@ mf.boxplot <- function(
       position = position_quasirandom(groupOnX = TRUE),
       size = size, alpha=plot.alpha
     )
+    }
 
     # jitter <- geom_beeswarm(
     #   aes(
@@ -133,6 +145,15 @@ mf.boxplot <- function(
     #         col=plot.col
     #       )
 
+    if(beeswarm){
+      jitter <- geom_beeswarm(
+        aes(
+          y   = get(var.y),
+          x   = as.factor(get(var.x))
+        ),
+        size = size, alpha=plot.alpha
+      )
+    }else{
     jitter <- geom_point(
       aes(
         y   = get(var.y),
@@ -142,7 +163,8 @@ mf.boxplot <- function(
       size = size,
       col=plot.col,
       alpha=plot.alpha
-    )
+      )
+    }
   }
 
   plot.box_plot <-

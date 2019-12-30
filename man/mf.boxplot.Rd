@@ -4,10 +4,11 @@
 \alias{mf.boxplot}
 \title{Make many boxplots from tidy ordering sheet}
 \usage{
-mf.boxplot(data, var.x, var.y, scale.var.y, var.caption, ax.lab.x = "X",
-  ax.lab.y = "Y", size = 0.5, var.col = NA, plot.col = "black",
-  plot.alpha = 1, plot.y_intcpt.alpha = 0, plot.y_intcpt = 1,
-  box.col = "gray", theme.input = theme_bw(), str, str.x = NULL,
+mf.boxplot(data, var.x, var.y, scale.var.y = "not_scale",
+  var.caption = "", ax.lab.x = "X", ax.lab.y = "Y", size = 0.5,
+  var.col = NA, plot.col = "black", plot.alpha = 1,
+  plot.y_intcpt.alpha = 0, plot.y_intcpt = 1, box.col = "gray",
+  beeswarm = FALSE, theme.input = theme_bw(), str, str.x = NULL,
   str.y = NULL, dn.surfix, .dir.output = dir.output)
 }
 \arguments{
@@ -17,6 +18,8 @@ mf.boxplot(data, var.x, var.y, scale.var.y, var.caption, ax.lab.x = "X",
 
 \item{var.y}{<character; proccessing>}
 
+\item{scale.var.y}{<character; proccessing>}
+
 \item{size}{<numeric; proccessing>}
 
 \item{var.col}{<character; proccessing>}
@@ -24,6 +27,8 @@ mf.boxplot(data, var.x, var.y, scale.var.y, var.caption, ax.lab.x = "X",
 \item{plot.col}{<character; proccessing>}
 
 \item{box.col}{<character; proccessing>}
+
+\item{theme.input}{ggplot2::theme-class object}
 
 \item{str}{<character; proccessing>}
 
