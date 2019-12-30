@@ -37,6 +37,7 @@ mf.boxplot <- function(
   plot.y_intcpt=1,
   box.col="gray",
   beeswarm = FALSE,
+  width.box = NA,
   theme.input = theme_bw(),
   str,
   str.x=NULL,
@@ -105,9 +106,18 @@ mf.boxplot <- function(
           y   = get(var.y),
           x   = as.factor(get(var.x)),
           color=get(var.col)
-        ),
+          ),
         size = size, alpha=plot.alpha
-      )
+        )
+      boxplot <- geom_boxplot(
+        aes(
+          y   = get(var.y),
+          x   = as.factor(get(var.x))
+          ),
+        width = width.box,
+        color=box.col,
+        outlier.alpha = 0
+        )
     }else{
     jitter <- geom_point(
       aes(
@@ -118,6 +128,14 @@ mf.boxplot <- function(
       position = position_quasirandom(groupOnX = TRUE),
       size = size, alpha=plot.alpha
     )
+    boxplot <- geom_boxplot(
+      aes(
+        y   = get(var.y),
+        x   = as.factor(get(var.x))
+      ),
+      color=box.col,
+      outlier.alpha = 0
+      )
     }
 
     # jitter <- geom_beeswarm(
@@ -153,6 +171,15 @@ mf.boxplot <- function(
         ),
         size = size, alpha=plot.alpha
       )
+      boxplot <- geom_boxplot(
+        aes(
+          y   = get(var.y),
+          x   = as.factor(get(var.x))
+        ),
+        width = width.box,
+        color=box.col,
+        outlier.alpha = 0
+      )
     }else{
     jitter <- geom_point(
       aes(
@@ -164,19 +191,20 @@ mf.boxplot <- function(
       col=plot.col,
       alpha=plot.alpha
       )
-    }
-  }
-
-  plot.box_plot <-
-    ggdata +
-    geom_boxplot(
+    boxplot <- geom_boxplot(
       aes(
         y   = get(var.y),
         x   = as.factor(get(var.x))
       ),
       color=box.col,
       outlier.alpha = 0
-    ) +
+      )
+    }
+  }
+
+  plot.box_plot <-
+    ggdata +
+    boxplot +
 
     jitter +
 
