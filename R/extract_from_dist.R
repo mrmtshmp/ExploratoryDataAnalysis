@@ -14,10 +14,14 @@ extract_type <- function(
   dist,
   Type_extr,
   Name_type
-){
-  if(length(colnames(dist))<2){
-    stop("dist-class object must be named")
+  ){
+  mtx.dist <- as.matrix(dist, labels=TRUE)
+  df.dist <- as.data.frame(mtx.dist)
+
+  if(length(colnames(df.dist))<2){
+    stop("dist-class object must be labeled")
   }
+
   names <- Name_type %>%
 
     dplyr::filter(#parse(text=Type_extr))

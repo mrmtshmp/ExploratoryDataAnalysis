@@ -4,9 +4,15 @@
 \alias{dist_and_extract}
 \title{Calculate distance and extract subjects}
 \usage{
-dist_and_extract(data, sufix = "extracted", tree_phylo = NULL,
-  method = "euclidean", type_extr = "Type\%in\%c(3,4)",
-  Name_type = df.Name_type, param.UniFrac = c(0, 0.5, 1, "UW"))
+dist_and_extract(
+  data,
+  sufix = "extracted",
+  tree_phylo = NULL,
+  method = "euclidean",
+  type_extr = "Type\%in\%c(3,4)",
+  Name_type = df.Name_type,
+  param.UniFrac = c(0, 0.5, 1, "UW")
+)
 }
 \arguments{
 \item{data}{A matrix to calculate distance}

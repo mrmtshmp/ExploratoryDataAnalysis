@@ -4,10 +4,19 @@
 \alias{MICorrBoots}
 \title{Mutual information with weighted bootstrap}
 \usage{
-MICorrBoots(X, Y, S = NULL, method = "emp", disc.X = "equalfreq",
-  disc.Y = "equalfreq", alpha = 0.6, n.sim = 2000,
-  group = ADS$subjID, samp.prob = rep(1/length(unique(ADS$subjID)),
-  length(unique(ADS$subjID))), ...)
+MICorrBoots(
+  X,
+  Y,
+  S = NULL,
+  method = "emp",
+  disc.X = "equalfreq",
+  disc.Y = "equalfreq",
+  alpha = 0.6,
+  n.sim = 2000,
+  group = ADS$subjID,
+  samp.prob = rep(1/length(unique(ADS$subjID)), length(unique(ADS$subjID))),
+  ...
+)
 }
 \arguments{
 \item{X}{<object; input> A numeric vector.}
