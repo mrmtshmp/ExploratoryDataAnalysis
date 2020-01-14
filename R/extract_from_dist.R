@@ -39,7 +39,7 @@ extract_type <- function(
     dplyr::select(-Name)
 
   return(
-    row_output[,names$Name] %>%
+    row_output[ , names$Name[names$Name %in% colnames(row_output)]] %>%
       as.matrix() %>%
       as.dist()
   )
