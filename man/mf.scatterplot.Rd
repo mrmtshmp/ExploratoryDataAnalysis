@@ -15,9 +15,11 @@ mf.scatterplot(
   plot.col = "black",
   line.col = "gray",
   cont.col = FALSE,
+  contour.col = "gray",
+  contour.alpha = 0.6,
   str,
   dn.surfix,
-  betas,
+  betas = NULL,
   ggdata = NULL
 )
 }

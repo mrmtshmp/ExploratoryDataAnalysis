@@ -508,9 +508,11 @@ mf.scatterplot <- function(
   plot.col = "black",
   line.col = "gray",
   cont.col = FALSE,
+  contour.col='gray',
+  contour.alpha=0.6,
   str,
   dn.surfix,
-  betas,
+  betas=NULL,
   ggdata=NULL
 ){
 
@@ -557,15 +559,18 @@ mf.scatterplot <- function(
     )
   }
 
-  line_0 <- geom_abline(
-    intercept = betas[,"b0"], #+ betas[,"b2"],
-    slope = betas[,"b1"] #+ betas[,"b3"]
-  )
+  if(!is.null(betas)){
+    line_0 <- geom_abline(
+      intercept = betas[,"b0"], #+ betas[,"b2"],
+      slope = betas[,"b1"] #+ betas[,"b3"]
+    )
 
-  line_1 <- geom_abline(
-    intercept = betas[,"b0"] + betas[,"b2"],
-    slope = betas[,"b1"] + betas[,"b3"]
-  )
+    line_1 <- geom_abline(
+      intercept = betas[,"b0"] + betas[,"b2"],
+      slope = betas[,"b1"] + betas[,"b3"]
+    )
+  }
+
 
   trans.y <- trans.y
   trans.x <- trans.x
@@ -586,23 +591,43 @@ mf.scatterplot <- function(
     width = 7 * n.str
   )
 
-  p =
-    ggdata +
-    point +
-    facet_grid(
-      as.formula(formula.facet)
-    ) +
-    line_0 + line_1 +
-    geom_density_2d(
-      aes(
-        y   = get(var.y),
-        x   = get(var.x)
-      ),
-      color='gray', alpha=0.6, stat =
-    ) + scale_colour_gradient(low="green",high="red") +
+  if(!is.null(betas)){
+    p =
+      ggdata +
+      point +
+      facet_grid(
+        as.formula(formula.facet)
+      ) +
+      line_0 + line_1 +
+      geom_density_2d(
+        aes(
+          y   = get(var.y),
+          x   = get(var.x)
+        ),
+        color=contour.col, alpha=contour.alpha, stat =
+      ) + scale_colour_gradient(low="green",high="red") +
 
-    plot.color +
-    theme_bw()
+      plot.color +
+      theme_bw()
+  }else{
+    p =
+      ggdata +
+      point +
+      facet_grid(
+        as.formula(formula.facet)
+      ) +
+      geom_density_2d(
+        aes(
+          y   = get(var.y),
+          x   = get(var.x)
+        ),
+        color=contour.col, alpha=contour.alpha, stat =
+      ) + scale_colour_gradient(low="green",high="red") +
+
+      plot.color +
+      theme_bw()
+  }
+
 
   if(
     (trans.x=="NoScale") &
