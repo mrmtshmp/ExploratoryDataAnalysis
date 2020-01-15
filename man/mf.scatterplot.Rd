@@ -6,7 +6,6 @@
 \usage{
 mf.scatterplot(
   data,
-  ggdata,
   var.x,
   var.y,
   trans.y = c("log10", "identity"),
@@ -18,13 +17,12 @@ mf.scatterplot(
   cont.col = FALSE,
   str,
   dn.surfix,
-  betas
+  betas,
+  ggdata = NULL
 )
 }
 \arguments{
 \item{data}{<object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)}
-
-\item{ggdata}{<object; input> A object with ggplot-class}
 
 \item{var.x}{<character; proccessing>}
 
@@ -45,6 +43,8 @@ mf.scatterplot(
 \item{dn.surfix}{<character; output>}
 
 \item{betas}{<character; proccessing> A numeric vector for coefficients of regression line}
+
+\item{ggdata}{<object; input> A object with ggplot-class}
 }
 \description{
 Make many scatterplots from tidy ordering sheet

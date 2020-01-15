@@ -500,7 +500,7 @@ mf.wrap.boxplot <- function(D, data, ggdata, ...){
 # Scatter plot -------
 
 mf.scatterplot <- function(
-  data, ggdata, var.x, var.y,
+  data, var.x, var.y,
   trans.y  = c("log10", "identity"),
   trans.x  = c("log10", "identity"),
   size     = 0.5,
@@ -510,9 +510,11 @@ mf.scatterplot <- function(
   cont.col = FALSE,
   str,
   dn.surfix,
-  betas
+  betas,
+  ggdata=NULL
 ){
 
+  if(is.null(ggdata)){ggdata <- ggplot(data)}
 
   formula.facet <- sprintf(
     "%s ~ %s", ".",
