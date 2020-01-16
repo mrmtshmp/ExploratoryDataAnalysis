@@ -4,16 +4,10 @@
 \alias{mf.LCExtrpbyWideData}
 \title{Extrapolation the least change}
 \usage{
-mf.LCExtrpbyWideData(
-  data,
-  col.visit = c("vis.0", "vis.6", "vis.18"),
-  ink.col.visit = "vis.6",
-  paper.col.visit = "vis.18",
-  ADS.Saihi,
-  ADS.Demo,
-  .Set = c("ITT", "FAS", "SAS", "PPS"),
-  val.Alloc = val.Alloc
-)
+mf.LCExtrpbyWideData(data, col.visit = c("vis.0", "vis.6", "vis.18"),
+  ink.col.visit = "vis.6", paper.col.visit = "vis.18", ADS.Saihi,
+  ADS.Demo, .Set = c("ITT", "FAS", "SAS", "PPS"),
+  val.Alloc = val.Alloc)
 }
 \arguments{
 \item{data}{A data.frame-class object.}

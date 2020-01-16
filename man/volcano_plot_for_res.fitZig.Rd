@@ -4,10 +4,9 @@
 \alias{volcano_plot_for_res.fitZig}
 \title{Calculate distance and extract subjects}
 \usage{
-volcano_plot_for_res.fitZig(
-  res.fitZig.obj.aggTaxon_full = res.fitZig.obj.aggTaxon_full,
-  aggTaxonLvl = "Genus"
-)
+
+  volcano_plot_for_res.fitZig(res.fitZig.obj.aggTaxon_full = res.fitZig.obj.aggTaxon_full,
+  aggTaxonLvl = "Genus")
 }
 \arguments{
 \item{res.fitZig.obj.aggTaxon_full}{A matrix to calculate distance}

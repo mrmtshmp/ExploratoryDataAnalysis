@@ -22,7 +22,7 @@
 mf.boxplot <- function(
 
   data,
-  #  ggdata,
+  ggdata=NULL,
   var.x,
   var.y,
   scale.var.y='not_scale',
@@ -48,8 +48,11 @@ mf.boxplot <- function(
   print(var.x)
   print(var.y)
 
-  ggdata <- data %>%
-    ggplot(aes(x=as.factor(get(var.x)), y=get(var.y)))
+  if(is.null(ggdata)){
+    ggdata <- data %>%
+      ggplot(aes(x=as.factor(get(var.x)), y=get(var.y)))
+    }
+
 
   print(ggdata)
 
