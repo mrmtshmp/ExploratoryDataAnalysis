@@ -510,6 +510,9 @@ mf.scatterplot <- function(
   cont.col = FALSE,
   contour.col='gray',
   contour.alpha=0.6,
+  ax.lab.x = NULL,
+  ax.lab.y = NULL,
+  var.caption = NULL,
   str,
   dn.surfix,
   betas=NULL,
@@ -608,6 +611,12 @@ mf.scatterplot <- function(
       ) + scale_colour_gradient(low="green",high="red") +
 
       plot.color +
+      xlab(ax.lab.x) +
+      ylab(ax.lab.y) +
+      labs(
+        title = str,
+        caption = var.caption
+      ) +
       theme_bw()
   }else{
     p =
@@ -625,6 +634,12 @@ mf.scatterplot <- function(
       ) + scale_colour_gradient(low="green",high="red") +
 
       plot.color +
+      xlab(ax.lab.x) +
+      ylab(ax.lab.y) +
+      labs(
+        title = str,
+        caption = var.caption
+      ) +
       theme_bw()
   }
 
