@@ -20,8 +20,8 @@ wilcox_test_auto_binomialier <- function(
       function(D){
         select.2_levels <-
           expand.grid(
-            unique(pData(obj)[,D$var.x]),
-            unique(pData(obj)[,D$var.x])
+            unique(df.ADS[,D$var.x]),
+            unique(df.ADS[,D$var.x])
           ) %>%
           dplyr::filter(Var1 < Var2) %>%
           data.frame()
