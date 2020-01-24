@@ -29,4 +29,5 @@ Imports:
     GGally,
     tidyr,
     ggbeeswarm,
-    magrittr
+    magrittr,
+    coin

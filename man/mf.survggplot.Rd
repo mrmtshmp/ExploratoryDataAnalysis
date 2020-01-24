@@ -4,10 +4,14 @@
 \alias{mf.survggplot}
 \title{Survival analysis on specified SNPs as arguments}
 \usage{
-mf.survggplot(data = data_01, SNPs = c("rs6755005", "rs10428132"),
+mf.survggplot(
+  data = data_01,
+  SNPs = c("rs6755005", "rs10428132"),
   gt = list(c("AA", "GA", "GG"), c("GG", "GT", "TT")),
   gt_levels = list(c("AA", "GA", "GG"), c("GG", "GT", "TT")),
-  surv = c("time", "status"), cov = NULL)
+  surv = c("time", "status"),
+  cov = NULL
+)
 }
 \arguments{
 \item{data}{A data.frame-class object with column of SNPs}
