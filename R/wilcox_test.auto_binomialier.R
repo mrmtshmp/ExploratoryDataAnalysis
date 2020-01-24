@@ -8,7 +8,7 @@
 #'
 #' @export
 
-wilcox_test.auto_binomialier <- function(
+wilcox_test_auto_binomialier <- function(
   df.ADS,
   df.input_for_cmp_2levels
   ){
