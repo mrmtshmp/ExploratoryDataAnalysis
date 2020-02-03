@@ -17,7 +17,7 @@ wilcox_test_auto_binomialier <- function(
 
     df.input_for_cmp_2levels %>%
     ddply(
-      .(var.x, var.y, str),
+      .(var.x, var.y, str, select.level),
       function(D){
         select.2_levels <-
           expand.grid(
@@ -33,7 +33,7 @@ wilcox_test_auto_binomialier <- function(
   cmpr.AlphaDiv.by_variables_in_MVA <-
     df.input.cmpr.AlphaDiv.by_variables_in_MVA %>%
     dlply(
-      .(var.x, var.y, str, Var1, Var2),
+      .(var.x, var.y, str, select.level, Var1, Var2),
       function(LEVELS){
         print(LEVELS)
         df.ADS <- df.ADS[
@@ -57,7 +57,7 @@ wilcox_test_auto_binomialier <- function(
               df.ADS %>%
               filter(
                 eval(parse(text =
-                             sprintf("%s==select.level", LEVELS$str)
+                             sprintf("%s==LEVELS$select.level", LEVELS$str)
                 )
                 )
               )
