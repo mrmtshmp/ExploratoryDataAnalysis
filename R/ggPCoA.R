@@ -43,12 +43,14 @@ gg_PCoA <- function(
   map <- cbind(map,groups)
 
   if(overlay){
-    if(labels=="sample_ID"){
-      map$sample <- rownames(map)
-    }else{
+    if(length(labels)==1){
+      if(labels=="sample_ID"){
+        map$sample <- rownames(map)
+        }
+      }else{
       map$sample <- labels
+      }
     }
-  }
 
   p       <- ggplot(map, aes_string(x=axes[1], y=axes[2]))
   geom    <- geom_jitter(
