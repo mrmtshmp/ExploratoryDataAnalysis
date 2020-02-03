@@ -10,7 +10,8 @@
 
 wilcox_test_auto_binomialier <- function(
   df.ADS,
-  df.input_for_cmp_2levels
+  df.input_for_cmp_2levels,
+  select.level=1
   ){
   df.input.cmpr.AlphaDiv.by_variables_in_MVA <-
 
@@ -56,7 +57,7 @@ wilcox_test_auto_binomialier <- function(
               df.ADS %>%
               filter(
                 eval(parse(text =
-                             sprintf("%s==1", LEVELS$str)
+                             sprintf("%s==select.level", LEVELS$str)
                 )
                 )
               )
