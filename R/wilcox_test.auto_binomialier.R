@@ -23,7 +23,7 @@ wilcox_test_auto_binomialier <- function(
             unique(df.ADS[,D$var.x]),
             unique(df.ADS[,D$var.x])
           ) %>%
-          dplyr::filter(Var1 < Var2) %>%
+          dplyr::filter(as.numeric(Var1) < as.numeric(Var2)) %>%
           data.frame()
         return(select.2_levels)
       }
