@@ -525,6 +525,7 @@ mf.scatterplot <- function(
   ax.lab.y = NULL,
   var.caption = NULL,
   str,
+  coord_fixed = TRUE,
   dn.surfix,
   betas=NULL,
   ggdata=NULL
@@ -652,6 +653,8 @@ mf.scatterplot <- function(
       theme_bw()
   }
 
+
+  if(coord_fixed){p <- p + coord_fixed()}
 
   if(
     (trans.x=="NoScale") &

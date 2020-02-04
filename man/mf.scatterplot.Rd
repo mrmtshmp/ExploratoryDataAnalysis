@@ -22,6 +22,7 @@ mf.scatterplot(
   ax.lab.y = NULL,
   var.caption = NULL,
   str,
+  coord_fixed = TRUE,
   dn.surfix,
   betas = NULL,
   ggdata = NULL
