@@ -801,6 +801,8 @@ mf.scatterplot_with_missbox <- function(
   print(sprintf("strata=%s", n.str))
 
 
+  print(ggdata)
+
   p =
     ggdata +
     point +
