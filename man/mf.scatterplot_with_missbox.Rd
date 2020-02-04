@@ -17,6 +17,9 @@ mf.scatterplot_with_missbox(
   plot.col = "black",
   line.col = "gray",
   cont.col = FALSE,
+  ax.lab.x = NULL,
+  ax.lab.y = NULL,
+  var.caption = NULL,
   str,
   dn.surfix,
   betas

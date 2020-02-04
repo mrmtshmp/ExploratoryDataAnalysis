@@ -736,6 +736,9 @@ mf.scatterplot_with_missbox <- function(
   plot.col = "black",
   line.col = "gray",
   cont.col = FALSE,
+  ax.lab.x = NULL,
+  ax.lab.y = NULL,
+  var.caption = NULL,
   str,
   dn.surfix,
   betas
@@ -810,11 +813,13 @@ mf.scatterplot_with_missbox <- function(
     ) + scale_colour_gradient(low="green",high="red") +
 
     plot.color +
-    theme_bw() +
+    xlab(ax.lab.x) +
+    ylab(ax.lab.y) +
     labs(
       title = str,
       caption = var.caption
-      )
+      ) +
+    theme_bw()
 
 
   if(
