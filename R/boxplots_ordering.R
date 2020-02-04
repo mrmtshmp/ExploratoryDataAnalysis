@@ -530,6 +530,12 @@ mf.scatterplot <- function(
   ggdata=NULL
 ){
 
+  data <-
+    data[
+      !is.na(data[,var.x]) & !is.na(data[,var.y])
+      ,
+      ]
+
   if(is.null(ggdata)){ggdata <- ggplot(data)}
 
   formula.facet <- sprintf(
