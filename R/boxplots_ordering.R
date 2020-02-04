@@ -227,16 +227,14 @@ mf.boxplot <- function(
 
 
   if(scale.y=="log10"){
-    plot.result <- plot(
+    plot.result <-
       plot.box_plot + scale_y_log10()
-    )
   }
 
   if(scale.y=="not_scale"){
 
-    plot.result <- plot(
+    plot.result <-
       plot.box_plot
-    )
   }
 
   if(output.plot){
@@ -251,11 +249,11 @@ mf.boxplot <- function(
       height = 5 * ny.str
     )
 
-    plot.result
+    plot(plot.box_plot)
 
     dev.off()
   }else{
-    return(plot.result)
+    return(plot.box_plot)
   }
 }
 

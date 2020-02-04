@@ -34,6 +34,8 @@ mf.boxplot(
 \arguments{
 \item{data}{<object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)}
 
+\item{output.plot}{<logical>}
+
 \item{var.x}{<character; proccessing>}
 
 \item{var.y}{<character; proccessing>}
