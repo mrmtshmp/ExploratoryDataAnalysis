@@ -744,9 +744,10 @@ mf.scatterplot_with_missbox <- function(
   betas
 ){
 
+  data$miss <- is.na(data[,var.y])
+
   if(is.null(ggdata)){ggdata <- ggplot(data)}
 
-  data$miss <- is.na(data[,var.y])
 
   formula.facet <- sprintf(
     "%s ~ %s", ".",
