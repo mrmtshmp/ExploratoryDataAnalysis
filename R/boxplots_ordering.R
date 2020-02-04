@@ -810,7 +810,11 @@ mf.scatterplot_with_missbox <- function(
     ) + scale_colour_gradient(low="green",high="red") +
 
     plot.color +
-    theme_bw()
+    theme_bw() +
+    labs(
+      title = str,
+      caption = var.caption
+      )
 
 
   if(
