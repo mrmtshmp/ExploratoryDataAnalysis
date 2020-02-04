@@ -6,7 +6,7 @@
 \usage{
 mf.scatterplot_with_missbox(
   data,
-  ggdata = NULL,
+  ggdata,
   var.x,
   var.y,
   output.plot = TRUE,

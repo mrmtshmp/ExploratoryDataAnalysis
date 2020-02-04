@@ -727,7 +727,7 @@ mf.scatterplot <- function(
 # Scatter plot with miss box -------
 
 mf.scatterplot_with_missbox <- function(
-  data, ggdata=NULL, var.x, var.y,
+  data, ggdata, var.x, var.y,
   output.plot=TRUE,
   trans.y  = c("log10", "identity"),
   trans.x  = c("log10", "identity"),
@@ -745,9 +745,6 @@ mf.scatterplot_with_missbox <- function(
 ){
 
   data$miss <- is.na(data[,var.y])
-
-  if(is.null(ggdata)){ggdata <- ggplot(data)}
-
 
   formula.facet <- sprintf(
     "%s ~ %s", ".",
@@ -801,8 +798,6 @@ mf.scatterplot_with_missbox <- function(
   print(sprintf("strata=%s", n.str))
 
 
-  print(ggdata)
-
   p =
     ggdata +
     point +
@@ -822,8 +817,7 @@ mf.scatterplot_with_missbox <- function(
     ylab(ax.lab.y) +
     labs(
       title = str,
-      caption = var.caption
-      ) +
+      caption = var.caption) +
     theme_bw()
 
 
