@@ -654,7 +654,15 @@ mf.scatterplot <- function(
   }
 
 
-  if(coord_fixed){p <- p + coord_fixed()}
+  if(coord_fixed){
+    p <- p + coord_fixed(
+      ratio = (
+        quantile(data[,D$var.x],probs = 1) - quantile(data[,D$var.x],probs = 0)
+          )/(
+            quantile(data[,D$var.y],probs = 1) - quantile(data[,D$var.y],probs = 0)
+            )
+      )
+    }
 
   if(
     (trans.x=="NoScale") &
