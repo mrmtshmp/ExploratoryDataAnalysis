@@ -508,7 +508,10 @@ mf.wrap.boxplot <- function(D, data, ggdata, ...){
 # Scatter plot -------
 
 mf.scatterplot <- function(
-  data, var.x, var.y,
+  data,
+  output.plot=TRUE,
+  var.x,
+  var.y,
   trans.y  = c("log10", "identity"),
   trans.x  = c("log10", "identity"),
   size     = 0.5,
@@ -593,14 +596,6 @@ mf.scatterplot <- function(
   )
   print(sprintf("strata=%s", n.str))
 
-  pdf(
-    sprintf(
-      "%s/%s.pdf",
-      dir.output,
-      dn.surfix
-    ),
-    width = 7 * n.str
-  )
 
   if(!is.null(betas)){
     p =
@@ -657,7 +652,8 @@ mf.scatterplot <- function(
     (trans.y=="NoScale")
   ){
     print("No scaled")
-    plot(p)
+    plot.output <-
+      p
   }
 
   if(
@@ -665,10 +661,9 @@ mf.scatterplot <- function(
     (trans.y!="NoScale")
   ){
     print(" Y scaled")
-    plot(
+    plot.output <-
       p +
         scale_y_continuous(trans=trans.y)
-    )
   }
 
   if(
@@ -676,10 +671,9 @@ mf.scatterplot <- function(
     (trans.y=="NoScale")
   ){
     print(" X scaled")
-    plot(
+    plot.output <-
       p +
         scale_x_continuous(trans=trans.x)
-    )
   }
 
   if(
@@ -687,14 +681,26 @@ mf.scatterplot <- function(
     (trans.y!="NoScale")
   ){
     print("Both scaled")
-    plot(
+    plot.output <-
       p +
         scale_y_continuous(trans=trans.x) +
         scale_x_continuous(trans=trans.x)
-    )
   }
+  if(output.plot){
+    pdf(
+      sprintf(
+        "%s/%s.pdf",
+        dir.output,
+        dn.surfix
+      ),
+      width = 7 * n.str
+    )
+    plot(plot.output)
+    dev.off()
+  }else{
+      return(plot.output)
+    }
 
-  dev.off()
 }
 
 
@@ -722,6 +728,7 @@ mf.scatterplot <- function(
 
 mf.scatterplot_with_missbox <- function(
   data, ggdata, var.x, var.y,
+  output.plot=TRUE,
   trans.y  = c("log10", "identity"),
   trans.x  = c("log10", "identity"),
   size     = 0.5,
@@ -787,14 +794,6 @@ mf.scatterplot_with_missbox <- function(
   )
   print(sprintf("strata=%s", n.str))
 
-  pdf(
-    sprintf(
-      "%s/%s.pdf",
-      dir.output,
-      dn.surfix
-    ),
-    width = 7 * n.str
-  )
 
   p =
     ggdata +
@@ -884,10 +883,23 @@ mf.scatterplot_with_missbox <- function(
   g <- cbind(g1, g2, size = "first")
   print(class(g))
   g$widths = grid::unit.pmax(g1$widths, g2$widths)
-  plot(g)
-  #  gridExtra::grid.arrange(p1, p2, nrow = 1)
-  dev.off()
-}
+
+  if(output.plot){
+    pdf(
+      sprintf(
+        "%s/%s.pdf",
+        dir.output,
+        dn.surfix
+      ),
+      width = 7 * n.str
+    )
+    plot(g)
+    #  gridExtra::grid.arrange(p1, p2, nrow = 1)
+    dev.off()
+  }else{
+      return(g)
+    }
+  }
 
 #' Make many scatterplots from tidy ordering sheet
 #'

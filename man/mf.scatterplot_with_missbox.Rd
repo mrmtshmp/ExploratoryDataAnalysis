@@ -9,6 +9,7 @@ mf.scatterplot_with_missbox(
   ggdata,
   var.x,
   var.y,
+  output.plot = TRUE,
   trans.y = c("log10", "identity"),
   trans.x = c("log10", "identity"),
   size = 0.5,

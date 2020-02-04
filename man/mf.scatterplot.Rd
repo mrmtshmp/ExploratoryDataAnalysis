@@ -6,6 +6,7 @@
 \usage{
 mf.scatterplot(
   data,
+  output.plot = TRUE,
   var.x,
   var.y,
   trans.y = c("log10", "identity"),
