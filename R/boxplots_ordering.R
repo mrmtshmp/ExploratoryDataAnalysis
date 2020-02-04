@@ -727,7 +727,7 @@ mf.scatterplot <- function(
 # Scatter plot with miss box -------
 
 mf.scatterplot_with_missbox <- function(
-  data, ggdata, var.x, var.y,
+  data, ggdata=NULL, var.x, var.y,
   output.plot=TRUE,
   trans.y  = c("log10", "identity"),
   trans.x  = c("log10", "identity"),
@@ -743,6 +743,8 @@ mf.scatterplot_with_missbox <- function(
   dn.surfix,
   betas
 ){
+
+  if(is.null(ggdata)){ggdata <- ggplot(data)}
 
   data$miss <- is.na(data[,var.y])
 
