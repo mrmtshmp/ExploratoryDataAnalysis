@@ -7,6 +7,7 @@
 mf.boxplot(
   data,
   ggdata = NULL,
+  output.plot = TRUE,
   var.x,
   var.y,
   scale.var.y = "not_scale",

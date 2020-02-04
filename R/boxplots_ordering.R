@@ -4,6 +4,7 @@
 #' @import ggbeeswarm
 #'
 #' @param data <object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)
+#' @param output.plot <logical>
 #' @param var.x <character; proccessing>
 #' @param var.y <character; proccessing>
 #' @param scale.var.y <character; proccessing>
@@ -23,6 +24,7 @@ mf.boxplot <- function(
 
   data,
   ggdata=NULL,
+  output.plot=TRUE,
   var.x,
   var.y,
   scale.var.y='not_scale',
@@ -54,8 +56,6 @@ mf.boxplot <- function(
     }
 
 
-  print(ggdata)
-
   if(!is.null(str.x) & !is.null(str.y)){
     formula.facet <-
       sprintf("%s ~ %s", str.y, str.x)
@@ -86,17 +86,6 @@ mf.boxplot <- function(
 
 
   if(is.na(width.box)){width.box <- 1}
-
-  pdf(
-    sprintf(
-      "%s/%s_Panels_%s_var.X_%s_var.Y_%s.pdf",
-      .dir.output,
-      dn.surfix,
-      str, var.x, var.y
-    ),
-    width = 2.5 * nx.str *nx.var *width.box,
-    height = 5 * ny.str
-  )
 
   if (length(grep("_", plot.col))) {
     plot.color <-
@@ -236,20 +225,38 @@ mf.boxplot <- function(
 
   scale.y <- unique(scale.var.y)
 
+
   if(scale.y=="log10"){
-    plot(
+    plot.result <- plot(
       plot.box_plot + scale_y_log10()
     )
   }
 
   if(scale.y=="not_scale"){
 
-    plot(
+    plot.result <- plot(
       plot.box_plot
     )
   }
 
-  dev.off()
+  if(output.plot){
+    pdf(
+      sprintf(
+        "%s/%s_Panels_%s_var.X_%s_var.Y_%s.pdf",
+        .dir.output,
+        dn.surfix,
+        str, var.x, var.y
+      ),
+      width = 2.5 * nx.str *nx.var *width.box,
+      height = 5 * ny.str
+    )
+
+    plot.result
+
+    dev.off()
+  }else{
+    return(plot.result)
+  }
 }
 
 #' Make many boxplots on line plot from tidy ordering sheet
