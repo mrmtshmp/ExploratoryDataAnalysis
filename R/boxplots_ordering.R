@@ -31,6 +31,7 @@ mf.boxplot <- function(
   var.caption ='',
   ax.lab.x ="X",
   ax.lab.y ="Y",
+  coord_fixed = TRUE,
   size = 0.5,
   var.col=NA,
   plot.col="black",
@@ -236,6 +237,8 @@ mf.boxplot <- function(
     plot.result <-
       plot.box_plot
   }
+
+  if(coord_fixed){plot.box_plot <- plot.box_plot + coord_fixed(13/(8 * length(unique(data[,var.x]))))}
 
   if(output.plot){
     pdf(

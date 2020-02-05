@@ -14,6 +14,7 @@ mf.boxplot(
   var.caption = "",
   ax.lab.x = "X",
   ax.lab.y = "Y",
+  coord_fixed = TRUE,
   size = 0.5,
   var.col = NA,
   plot.col = "black",
