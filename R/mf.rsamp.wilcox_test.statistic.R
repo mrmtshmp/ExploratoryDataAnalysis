@@ -27,6 +27,7 @@ mf.rsamp.wilcox_test.statistic <-
         'dummy'=1, 'itt' = seq(1:itt.rsamp)
       )
 
+
     vec.rowSumPosi <- apply(
       count.table,
       1,
@@ -45,10 +46,11 @@ mf.rsamp.wilcox_test.statistic <-
           if(itt$itt==1){
             rsamp.MRcounts.obj.aggTaxa <- count.table
           }else{
+            print(itt$itt)
             rsamp.MRcounts.obj.aggTaxa <-
               ori.count.table[
                 sample(
-                  x = 1:nrow(count.table),
+                  x = 1:nrow(ori.count.table),
                   size = sum(vec.rowSumPosi)
                 ),
                 ]
