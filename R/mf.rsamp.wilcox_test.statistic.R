@@ -46,7 +46,6 @@ mf.rsamp.wilcox_test.statistic <-
           if(itt$itt==1){
             rsamp.MRcounts.obj.aggTaxa <- count.table
           }else{
-            print(itt$itt)
             rsamp.MRcounts.obj.aggTaxa <-
               ori.count.table[
                 sample(
