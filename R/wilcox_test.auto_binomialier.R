@@ -60,8 +60,9 @@ wilcox_test_auto_binomialier <- function(
                              sprintf("%s==LEVELS$select.level", LEVELS$str)
                 )
                 )
-              )
-          )
+              ),
+            distribution="exact"
+            )
         res <- c(sprintf("filtered by %s==1", LEVELS$str), res)
         return(unlist(res))
       }
