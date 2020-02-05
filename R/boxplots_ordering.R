@@ -238,7 +238,11 @@ mf.boxplot <- function(
       plot.box_plot
   }
 
-  if(coord_fixed){plot.box_plot <- plot.box_plot + coord_fixed(13/max(data[,var.y]) /(8 * length(unique(data[,var.x]))))}
+  if(coord_fixed){plot.box_plot <-
+    plot.box_plot +
+    coord_fixed(
+      13/(max(data[,var.y])-min(data[,var.y])) /
+        (4 * length(unique(data[,var.x]))))}
 
   if(output.plot){
     pdf(
