@@ -7,7 +7,9 @@
 mf.rsamp.mutualinfo_test(var.x = "BVAS", data = pData.obj.aggTaxa.ADS,
   count.table = MRcounts(obj.aggTaxa.ADS),
   ori.count.table = MRcounts(obj.aggTaxa),
-  itt.rsamp = itt.rsamp.wilcox, func.stat = vegan::diversity, ...)
+  itt.rsamp = itt.rsamp.wilcox, func.stat = vegan::diversity,
+  MIPermute.method = "emp", MIPermute.discretize.X = "equalfreq",
+  MIPermute.discretize.Y = "equalfreq", MIPermute.alpha = 0.6, ...)
 }
 \arguments{
 \item{var.x}{Column name of phenotype data.}

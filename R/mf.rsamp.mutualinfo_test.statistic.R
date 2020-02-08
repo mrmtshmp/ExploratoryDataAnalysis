@@ -22,6 +22,10 @@ mf.rsamp.mutualinfo_test <-
     ori.count.table = MRcounts(obj.aggTaxa),
     itt.rsamp = itt.rsamp.wilcox,
     func.stat = vegan::diversity,
+    MIPermute.method='emp',
+    MIPermute.discretize.X="equalfreq",
+    MIPermute.discretize.Y="equalfreq",
+    MIPermute.alpha = 0.6,
     ...
   ){
 
@@ -72,8 +76,11 @@ mf.rsamp.mutualinfo_test <-
             X=data[,'cmp.group'],
             S = 1,
             data = data,
-            ...
-          )
+            method = MIPermute.method,
+            disc.X = MIPermute.discretize.X,
+            disc.Y = MIPermute.discretize.Y,
+            alpha = MIPermute.alpha
+            )
 
           return(res.mutualinfo)
         }
