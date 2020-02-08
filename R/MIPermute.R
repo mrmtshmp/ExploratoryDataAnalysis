@@ -110,7 +110,9 @@ MIPermute <- function(
                 alpha = alpha,
                 ...
               )
-              return(c(m1a$MIC, m1a$MAS, m1a$MEV, m1a$MCN, m1a$`MIC-R2`, m1a$GMIC, m1a$TIC))
+              df.m1a <- data.frame(m1a$MIC, m1a$MAS, m1a$MEV, m1a$MCN, m1a$`MIC-R2`, m1a$GMIC, m1a$TIC)
+              colnames(df.m1a) <- c('MIC', 'MAS', 'MEV', 'MCN', 'MIC-R2', 'GMIC', 'TIC')
+              return(df.m1a)
               }
             )
         }

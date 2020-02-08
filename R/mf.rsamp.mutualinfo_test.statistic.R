@@ -31,11 +31,20 @@ mf.rsamp.mutualinfo_test <-
 
     data[,"cmp.group"] <- data[,var.x]
 
+    inc.sample.ID <-
+      colnames(count.table)[
+        colnames(count.table) %in% rownames(data)
+        ]
+
+    count.table <- count.table[,inc.sample.ID]
+    ori.count.table <- ori.count.table[,inc.sample.ID]
+
+    print(sprintf('IDs of analyzed samples:%s', inc.sample.ID))
+
     df.itt <-
       data.frame(
         'dummy'=1, 'itt' = seq(1:itt.rsamp)
       )
-
 
     vec.rowSumPosi <- apply(
       count.table,
