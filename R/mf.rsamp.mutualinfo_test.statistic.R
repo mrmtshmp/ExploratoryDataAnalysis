@@ -1,4 +1,6 @@
 #' Resampling test for significance of mutual information between alpha-diversity index and some feature selection method.
+#' This function uses MIPermute internally without permutation (this is controlled by setting *n.sim=1*)
+#'
 #'
 #' @import dplyr
 #' @import coin
@@ -39,7 +41,7 @@ mf.rsamp.mutualinfo_test <-
     count.table <- count.table[,inc.sample.ID]
     ori.count.table <- ori.count.table[,inc.sample.ID]
 
-    print(sprintf('IDs of analyzed samples:%s', inc.sample.ID))
+    print(sprintf('IDs of analyzed samples:%s', paste(inc.sample.ID,collapse = ' ')))
 
     df.itt <-
       data.frame(

@@ -2,7 +2,8 @@
 % Please edit documentation in R/mf.rsamp.mutualinfo_test.statistic.R
 \name{mf.rsamp.mutualinfo_test}
 \alias{mf.rsamp.mutualinfo_test}
-\title{Resampling test for significance of mutual information between alpha-diversity index and some feature selection method.}
+\title{Resampling test for significance of mutual information between alpha-diversity index and some feature selection method.
+This function uses MIPermute internally without permutation (this is controlled by setting *n.sim=1*)}
 \usage{
 mf.rsamp.mutualinfo_test(var.x = "BVAS", data = pData.obj.aggTaxa.ADS,
   count.table = MRcounts(obj.aggTaxa.ADS),
@@ -28,4 +29,5 @@ mf.rsamp.mutualinfo_test(var.x = "BVAS", data = pData.obj.aggTaxa.ADS,
 }
 \description{
 Resampling test for significance of mutual information between alpha-diversity index and some feature selection method.
+This function uses MIPermute internally without permutation (this is controlled by setting *n.sim=1*)
 }
