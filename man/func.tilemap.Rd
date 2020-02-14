@@ -4,14 +4,24 @@
 \alias{func.tilemap}
 \title{Make heatmap-like tile plot. (wrapper of gplots::heatmap2)}
 \usage{
-func.tilemap(fn.output.pdf = "Tile", surfix.maintitle = "Group: ",
-  bin = FALSE, n.breaks = 20, col.bias = 2, breaks = NULL,
-  row.adjust = 0, count_table, physi_table, filt.Features = NULL,
-  unitHierarchy = c("Kingdom", "Phylum", "Class", "Order", "Family",
-  "Genus", "Species", "NoAgg"), method.dist.Row = c("manhattan",
-  "euclidean"), method.hclust.Row = c("ward.D2"),
+func.tilemap(
+  fn.output.pdf = "Tile",
+  surfix.maintitle = "Group: ",
+  bin = FALSE,
+  n.breaks = 20,
+  col.bias = 2,
+  breaks = NULL,
+  row.adjust = 0,
+  count_table,
+  physi_table,
+  filt.Features = NULL,
+  unitHierarchy = c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species",
+    "NoAgg"),
+  method.dist.Row = c("manhattan", "euclidean"),
+  method.hclust.Row = c("ward.D2"),
   method.dist.Col = c("manhattan", "euclidean"),
-  method.hclust.Col = c("ward.D2"))
+  method.hclust.Col = c("ward.D2")
+)
 }
 \arguments{
 \item{fn.output.pdf}{<character; output> File name of PDF output.}

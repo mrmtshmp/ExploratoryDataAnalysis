@@ -4,12 +4,26 @@
 \alias{mf.scatterplot_with_missbox}
 \title{Make many scatterplots from tidy ordering sheet}
 \usage{
-mf.scatterplot_with_missbox(data, ggdata, var.x, var.y,
-  output.plot = TRUE, trans.y = c("log10", "identity"),
-  trans.x = c("log10", "identity"), size = 0.5, var.col = NA,
-  plot.col = "black", line.col = "gray", cont.col = FALSE,
-  ax.lab.x = NULL, ax.lab.y = NULL, var.caption = NULL, str,
-  dn.surfix, betas)
+mf.scatterplot_with_missbox(
+  data,
+  ggdata,
+  var.x,
+  var.y,
+  output.plot = TRUE,
+  trans.y = c("log10", "identity"),
+  trans.x = c("log10", "identity"),
+  size = 0.5,
+  var.col = NA,
+  plot.col = "black",
+  line.col = "gray",
+  cont.col = FALSE,
+  ax.lab.x = NULL,
+  ax.lab.y = NULL,
+  var.caption = NULL,
+  str,
+  dn.surfix,
+  betas
+)
 }
 \arguments{
 \item{data}{<object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)}

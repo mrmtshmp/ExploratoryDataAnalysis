@@ -522,6 +522,7 @@ mf.scatterplot <- function(
   trans.y  = c("log10", "identity"),
   trans.x  = c("log10", "identity"),
   size     = 0.5,
+  theme.input=theme_bw(),
   var.col  = NA,
   plot.col = "black",
   line.col = "gray",
@@ -634,7 +635,7 @@ mf.scatterplot <- function(
         title = str,
         caption = var.caption
       ) +
-      theme_bw()
+      theme.input
   }else{
     p =
       ggdata +
@@ -657,7 +658,7 @@ mf.scatterplot <- function(
         title = str,
         caption = var.caption
       ) +
-      theme_bw()
+      theme.input
   }
 
 

@@ -28,7 +28,7 @@ T1_for_factorVar <- function(df.input, ADS){
             )
           print(length(unique(ADS[,D$str])))
 
-          if(length(unique(ADS[,D$str]))>1){
+          if(length(unique(ADS[,D$str]))>1 &length(unique(ADS[,D$var.x]))>1){
             res.fisher.test <- fisher.test(
               as.factor(ADS[,D$var.x]),
               as.factor(ADS[,D$str])
