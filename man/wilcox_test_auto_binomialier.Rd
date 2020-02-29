@@ -4,11 +4,8 @@
 \alias{wilcox_test_auto_binomialier}
 \title{Make many boxplots from tidy ordering sheet}
 \usage{
-wilcox_test_auto_binomialier(
-  df.ADS,
-  df.input_for_cmp_2levels,
-  select.level = 1
-)
+wilcox_test_auto_binomialier(df.ADS, df.input_for_cmp_2levels,
+  select.level = 1)
 }
 \arguments{
 \item{df.ADS}{<object; input> A data frame}

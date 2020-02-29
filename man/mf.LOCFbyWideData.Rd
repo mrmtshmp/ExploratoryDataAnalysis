@@ -4,12 +4,8 @@
 \alias{mf.LOCFbyWideData}
 \title{Simply do LOCF.}
 \usage{
-mf.LOCFbyWideData(
-  paper = ADS.measurement,
-  ink = ADS.measurement,
-  mold = df.miss.measurement,
-  val.Visit
-)
+mf.LOCFbyWideData(paper = ADS.measurement, ink = ADS.measurement,
+  mold = df.miss.measurement, val.Visit)
 }
 \arguments{
 \item{paper}{<object; input> A data frame.}

@@ -20,6 +20,12 @@ mf.rsamp.wilcox_test.statistic <-
     ...
   ){
 
+    if(ncol(ori.count.table) > ncol(count.table)){
+      ori.count.table <-
+        ori.count.table[,colnames(count.table)]
+      }
+
+
     data[,"cmp.group"] <- data[,var.x]
 
     df.itt <-
