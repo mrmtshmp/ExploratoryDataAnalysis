@@ -38,15 +38,6 @@ mf.rsamp.mutualinfo_test <-
         colnames(count.table) %in% rownames(data)
         ]
 
-    count.table <- count.table[,inc.sample.ID]
-    ori.count.table <- ori.count.table[,inc.sample.ID]
-
-    print(sprintf('IDs of analyzed samples:%s', paste(inc.sample.ID,collapse = ' ')))
-
-    df.itt <-
-      data.frame(
-        'dummy'=1, 'itt' = seq(1:itt.rsamp)
-      )
 
     vec.rowSumPosi <- apply(
       count.table,
@@ -55,6 +46,21 @@ mf.rsamp.mutualinfo_test <-
         return(sum(x)>0)
       }
     )
+
+    count.table <- count.table[,inc.sample.ID]
+    ori.count.table <- ori.count.table[,inc.sample.ID]
+
+    ori.count.table <- ori.count.table[vec.rowSumPosi,]
+
+
+    print(sprintf('IDs of analyzed samples:%s', paste(inc.sample.ID,collapse = ' ')))
+
+    df.itt <-
+      data.frame(
+        'dummy'=1, 'itt' = seq(1:itt.rsamp)
+      )
+
+
 
     res.rsamp.mutualinfo_test <-
       ddply(

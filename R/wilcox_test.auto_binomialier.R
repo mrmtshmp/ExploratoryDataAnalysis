@@ -50,22 +50,19 @@ wilcox_test_auto_binomialier <- function(
           as.character(LEVELS$var.x)
         )
         res <-
-          try(
-            coin::wilcox_test(
-              formula =
-                as.formula(fml.Wilcox),
-              data =
-                df.ADS %>%
-                filter(
-                  eval(parse(text =
-                               sprintf("%s==LEVELS$select.level", LEVELS$str)
-                  )
-                  )
-                ),
-              distribution="exact"
-              )
+          coin::wilcox_test(
+            formula =
+              as.formula(fml.Wilcox),
+            data =
+              df.ADS %>%
+              filter(
+                eval(parse(text =
+                             sprintf("%s==LEVELS$select.level", LEVELS$str)
+                )
+                )
+              ),
+            distribution="exact"
             )
-
         res <- c(sprintf("filtered by %s==1", LEVELS$str), res)
         return(unlist(res))
       }

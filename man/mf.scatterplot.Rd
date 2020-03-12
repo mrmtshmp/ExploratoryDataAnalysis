@@ -4,13 +4,30 @@
 \alias{mf.scatterplot}
 \title{Make many scatterplots from tidy ordering sheet}
 \usage{
-mf.scatterplot(data, output.plot = TRUE, var.x, var.y,
-  trans.y = c("log10", "identity"), trans.x = c("log10", "identity"),
-  size = 0.5, theme.input = theme_bw(), var.col = NA,
-  plot.col = "black", line.col = "gray", cont.col = FALSE,
-  contour.col = "gray", contour.alpha = 0.6, ax.lab.x = NULL,
-  ax.lab.y = NULL, var.caption = NULL, str, coord_fixed = TRUE,
-  dn.surfix, betas = NULL, ggdata = NULL)
+mf.scatterplot(
+  data,
+  output.plot = TRUE,
+  var.x,
+  var.y,
+  trans.y = c("log10", "identity"),
+  trans.x = c("log10", "identity"),
+  size = 0.5,
+  theme.input = theme_bw(),
+  var.col = NA,
+  plot.col = "black",
+  line.col = "gray",
+  cont.col = FALSE,
+  contour.col = "gray",
+  contour.alpha = 0.6,
+  ax.lab.x = NULL,
+  ax.lab.y = NULL,
+  var.caption = NULL,
+  str,
+  coord_fixed = TRUE,
+  dn.surfix,
+  betas = NULL,
+  ggdata = NULL
+)
 }
 \arguments{
 \item{data}{<object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)}

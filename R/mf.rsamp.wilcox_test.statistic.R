@@ -20,10 +20,16 @@ mf.rsamp.wilcox_test.statistic <-
     ...
   ){
 
-    if(ncol(ori.count.table) > ncol(count.table)){
-      ori.count.table <-
-        ori.count.table[,colnames(count.table)]
-      }
+
+    vec.rowSumPosi <- apply(
+      count.table,
+      1,
+      FUN = function(x){
+        return(sum(x)>0)
+        }
+      )
+
+    ori.count.table <- ori.count.table[vec.rowSumPosi,]
 
 
     data[,"cmp.group"] <- data[,var.x]
@@ -33,14 +39,6 @@ mf.rsamp.wilcox_test.statistic <-
         'dummy'=1, 'itt' = seq(1:itt.rsamp)
       )
 
-
-    vec.rowSumPosi <- apply(
-      count.table,
-      1,
-      FUN = function(x){
-        return(sum(x)>0)
-      }
-    )
 
     res.rsamp.wilcox_test..statistic..standardizedlinearstatistic <-
       ddply(
