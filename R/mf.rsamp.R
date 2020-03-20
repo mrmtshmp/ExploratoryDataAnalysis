@@ -40,6 +40,15 @@ mf.rsamp.lm <-
 
     fml=as.formula(sprintf("alpha_div.rsamp_i ~ %s", var.x))
 
+
+    data[,"cmp.group"] <- data[,var.x]
+
+    inc.sample.ID <-
+      colnames(count.table)[
+        colnames(count.table) %in% rownames(data)
+        ]
+
+
     vec.rowSumPosi <- apply(
       count.table,
       1,
@@ -48,10 +57,13 @@ mf.rsamp.lm <-
       }
     )
 
+    count.table <- count.table[,inc.sample.ID]
+    ori.count.table <- ori.count.table[,inc.sample.ID]
+
     ori.count.table <- ori.count.table[vec.rowSumPosi,]
 
 
-    data[,"cmp.group"] <- data[,var.x]
+    print(sprintf('IDs of analyzed samples:%s', paste(inc.sample.ID,collapse = ' ')))
 
     df.itt <-
       data.frame(
