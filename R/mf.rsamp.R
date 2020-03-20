@@ -1,8 +1,10 @@
 #' Resampling method for significance evaluation of some feature selection method.
 #'
 #'
-#'
+#' @import tidyr
+#' @import magrittr
 #' @import dplyr
+#' @import tibble
 #' @import robustbase
 #'
 #' @param var.x A character string to be RHS of formula in func.im.
@@ -100,7 +102,7 @@ mf.rsamp.lm <-
           res.lm <-
             do.call(func.lm, args = c(list(fml, data), list.do.call.func.lm))
 
-          statistics <- summary(res.lm)[[lm.summary.statistics]]
+          statistics <- summary(res.lm)[[lm.summary.statistics]] %>% data.frame() %>% rownames_to_column("terms")
 
           return(statistics)
         }
