@@ -100,11 +100,14 @@ mf.rsamp.lm <-
             )
 
           res.lm <-
-            do.call(func.lm, args = c(list(fml, data), list.do.call.func.lm))
+            try(
+              do.call(func.lm, args = c(list(fml, data), list.do.call.func.lm))
+              )
 
-          statistics <- summary(res.lm)[[lm.summary.statistics]] %>% data.frame() %>% rownames_to_column("terms")
-
-          return(statistics)
+          if(class(res.lm)!="try-error"){
+            statistics <- summary(res.lm)[[lm.summary.statistics]] %>% data.frame() %>% rownames_to_column("terms")
+            return(statistics)
+            }
         }
       )
     return(res.rsamp.summary.lm)
