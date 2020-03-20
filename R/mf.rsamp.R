@@ -1,0 +1,97 @@
+#' Resampling method for significance evaluation of some feature selection method.
+#'
+#'
+#'
+#' @import dplyr
+#' @import robustbase
+#'
+#' @param var.x A character string to be RHS of formula in func.im.
+#' @param data A data.frame-class object in which phenotype data were input.
+#' @param count.table A data.frame-class object of selected features.
+#' @param ori.count.table  A data.frame-class object of features without selection.
+#' @param itt.rsamp The number of itteration.
+#' @param func.stat A function object to compute summary of features (DEFAULT = vegan::diversity)
+#' @param func.lm  A function object to
+#' @param lm.summary.statistics = vegan::diversity,
+#' @param list.do.call.func.stat list of arguments to be input func.stat.
+#' @param list.do.call.func.lm list of arguments to be input func.stat.
+#' @param ... so far ineffective.
+#'
+#' @export
+
+
+
+mf.rsamp.lm <-
+  function(
+    var.x= "BVAS",
+    data = pData.obj.aggTaxa.ADS,
+    count.table = MRcounts(obj.aggTaxa.ADS),
+    ori.count.table = MRcounts(obj.aggTaxa),
+    itt.rsamp = itt.rsamp.wilcox,
+    func.stat = vegan::diversity,
+    func.lm = robustbase::lmrob,
+    lm.summary.statistics="coefficients",
+    list.do.call.func.stat = list(index="simpson"),
+    list.do.call.func.lm = list(method="MM"),
+    ...
+  ){
+
+    if(!(var.x %in% names(data))) stop("var.x is not in data.")
+
+    fml=as.formula(sprintf("alpha_div.rsamp_i ~ %s", var.x))
+
+    vec.rowSumPosi <- apply(
+      count.table,
+      1,
+      FUN = function(x){
+        return(sum(x)>0)
+      }
+    )
+
+    ori.count.table <- ori.count.table[vec.rowSumPosi,]
+
+
+    data[,"cmp.group"] <- data[,var.x]
+
+    df.itt <-
+      data.frame(
+        'dummy'=1, 'itt' = seq(1:itt.rsamp)
+      )
+
+
+    res.rsamp.summary.lm <-
+      ddply(
+        df.itt,
+        .(itt),
+        .progress = "text",
+
+        function(itt){
+          if(itt$itt==1){
+            rsamp.MRcounts.obj.aggTaxa <- count.table
+          }else{
+            rsamp.MRcounts.obj.aggTaxa <-
+              ori.count.table[
+                sample(
+                  x = 1:nrow(ori.count.table),
+                  size = sum(vec.rowSumPosi)
+                ),
+                ]
+          }
+
+          data$alpha_div.rsamp_i <-
+            apply(
+              rsamp.MRcounts.obj.aggTaxa, MARGIN = 2,
+              function(mat)
+                do.call( func.stat, args = c(list(x = mat), list.do.call.func.stat))
+            )
+
+          res.lm <-
+            do.call(func.lm, args = c(list(fml, data), list.do.call.func.lm))
+
+          statistics <- summary(res.lm)[[lm.summary.statistics]]
+
+          return(statistics)
+        }
+      )
+    return(res.rsamp.summary.lm)
+  }
