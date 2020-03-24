@@ -6,6 +6,7 @@
 
 
 mf.cross_posiSum <- function(data){
+  data <- as.data.frame(data)
   for(i in 1:2){
     print(dim(data)[i])
     print(i)
