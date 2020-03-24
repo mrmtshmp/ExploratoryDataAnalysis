@@ -21,7 +21,8 @@ mf.cross_posiSum <- function(data){
       }
 
     if(i==1) data <- data[vec.sumPosi,]
-    if(i==2) data <- data[,vec.sumPosi]
+    if(i==2 & !is.null(dim(data)[2])) data <- data[,vec.sumPosi]
+    if(i==2 & is.null(dim(data)[2])) data <- data[vec.sumPosi]
   }
   return(data)
 }
