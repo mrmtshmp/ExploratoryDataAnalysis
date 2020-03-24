@@ -9,7 +9,7 @@ mf.cross_posiSum <- function(data){
   for(i in 1:2){
     print(dim(data)[i])
     print(i)
-    if(unname(dim(data))[i]>1){
+    if(!is.null(dim(data))[i]){
       vec.sumPosi <- apply(
         X = data, MARGIN = i,
         FUN = function(x){
