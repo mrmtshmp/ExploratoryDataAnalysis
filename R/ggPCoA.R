@@ -36,7 +36,9 @@ gg_PCoA <- function(
   .size  = size
   .alpha = alpha
   map <- cmdscale(distmat) %>% #, k=100) %>%
-    data.frame()[, axes]
+    data.frame()
+
+  map <- map[,axes]
 
   colnames(map) <- axes
 
