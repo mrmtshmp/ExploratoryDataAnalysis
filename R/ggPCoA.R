@@ -6,6 +6,7 @@
 #' @param groups <character; output> A varible used forcolor coding.
 #' @param ggplot_theme <object; proccessing>
 #' @param axes <character strings; output; prefix = c("CS11","CS2")>  Labels for x and y axes.
+#' @param k_pc <numeric>
 #' @param overlay <logical; output; prefix =FALSE> Print subject IDs on respective plots?
 #' @param labels <; processing; prefix =2> Colour brewer setting
 #' @param title <object; input data; mandatory> A data.frame with features as column and subjects as rows.
@@ -39,7 +40,7 @@ gg_PCoA <- function(
   map <- cmdscale(distmat,k = max(k_pc)) %>% #, k=100) %>%
     data.frame()
 
-  map <- map[,axes]
+  map <- map[,k_pc]
 
   colnames(map) <- axes
 

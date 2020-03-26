@@ -29,6 +29,8 @@ gg_PCoA(
 
 \item{axes}{<character strings; output; prefix = c("CS11","CS2")>  Labels for x and y axes.}
 
+\item{k_pc}{<numeric>}
+
 \item{overlay}{<logical; output; prefix =FALSE> Print subject IDs on respective plots?}
 
 \item{labels}{<; processing; prefix =2> Colour brewer setting}
