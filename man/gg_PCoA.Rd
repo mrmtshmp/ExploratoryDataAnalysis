@@ -9,6 +9,7 @@ gg_PCoA(
   groups,
   ggplot_theme = summ_plot_theme,
   axes = c("CS1", "CS2"),
+  k_pc = c(1, 2),
   overlay = FALSE,
   labels = "sample_ID",
   title = "PCoA plot using by MDS",

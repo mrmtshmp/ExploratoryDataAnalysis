@@ -23,6 +23,7 @@ gg_PCoA <- function(
   groups,
   ggplot_theme = summ_plot_theme,
   axes = c("CS1", "CS2"),
+  k_pc = c(1,2),
   overlay = FALSE,
   labels  = "sample_ID",
   title="PCoA plot using by MDS",
@@ -35,7 +36,7 @@ gg_PCoA <- function(
 
   .size  = size
   .alpha = alpha
-  map <- cmdscale(distmat) %>% #, k=100) %>%
+  map <- cmdscale(distmat,k = max(k_pc)) %>% #, k=100) %>%
     data.frame()
 
   map <- map[,axes]
