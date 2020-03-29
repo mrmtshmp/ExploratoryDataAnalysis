@@ -14,7 +14,7 @@ mf.cross_posiSum <- function(data){
       vec.sumPosi <- apply(
         X = data, MARGIN = i,
         FUN = function(x){
-          return(sum(x)>0)
+          return(sum(x,na.rm = TRUE)>0)
           }
         )
     }else{

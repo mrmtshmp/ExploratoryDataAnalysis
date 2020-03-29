@@ -4,16 +4,10 @@
 \alias{mf.volcano_plot}
 \title{Calculate distance and extract subjects}
 \usage{
-mf.volcano_plot(
-  data,
-  aggTaxonLvl = "Genus",
-  plot.out = FALSE,
-  x.margin = 0.25,
-  y.margin = 0.25,
-  ggplot.theme = theme_bw(),
-  cbPalette = c("#56B4E9", "#D55E00", "#999999", "#009E73", "#F0E442", "#0072B2",
-    "#D55E00", "#CC79A7", "#00AFBB", "#E7B800", "#FC4E07")
-)
+mf.volcano_plot(data, aggTaxonLvl = "Genus", plot.out = FALSE,
+  x.margin = 0.25, y.margin = 0.25, ggplot.theme = theme_bw(),
+  cbPalette = c("#56B4E9", "#D55E00", "#999999", "#009E73", "#F0E442",
+  "#0072B2", "#D55E00", "#CC79A7", "#00AFBB", "#E7B800", "#FC4E07"))
 }
 \arguments{
 \item{data}{A matrix-class object}

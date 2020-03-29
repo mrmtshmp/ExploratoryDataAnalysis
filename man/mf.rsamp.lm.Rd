@@ -4,19 +4,13 @@
 \alias{mf.rsamp.lm}
 \title{Resampling method for significance evaluation of some feature selection method.}
 \usage{
-mf.rsamp.lm(
-  var.x = "BVAS",
-  data = pData.obj.aggTaxa.ADS,
+mf.rsamp.lm(var.x = "BVAS", data = pData.obj.aggTaxa.ADS,
   count.table = MRcounts(obj.aggTaxa.ADS),
   ori.count.table = MRcounts(obj.aggTaxa),
-  itt.rsamp = itt.rsamp.wilcox,
-  func.stat = vegan::diversity,
-  func.lm = robustbase::lmrob,
-  lm.summary.statistics = "coefficients",
+  itt.rsamp = itt.rsamp.wilcox, func.stat = vegan::diversity,
+  func.lm = robustbase::lmrob, lm.summary.statistics = "coefficients",
   list.do.call.func.stat = list(index = "simpson"),
-  list.do.call.func.lm = list(method = "MM"),
-  ...
-)
+  list.do.call.func.lm = list(method = "MM"), ...)
 }
 \arguments{
 \item{var.x}{A character string to be RHS of formula in func.im.}
