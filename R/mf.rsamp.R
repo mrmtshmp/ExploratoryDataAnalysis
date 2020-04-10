@@ -23,7 +23,7 @@
 #' @export
 
 
-mf.rsamp.lm_test <-
+mf.rsamp.lm <-
   function(
     var.x= "BVAS",
     data = pData.obj.aggTaxa.ADS,
@@ -35,10 +35,10 @@ mf.rsamp.lm_test <-
     lm.summary.statistics="coefficients",
     boot.estimate = TRUE,
     boot.method   = "ordinary",
+    confint = 0.975,
     var.estimate = "Estimate",
-    confint = NA,
     nR      = 500,
-    list.do.call.func.stat = list(index="simpson"),
+    list.do.call.func.stat = list(index="invsimpson"),
     list.do.call.func.lm = list(method="MM"),
     ...
   ){
@@ -151,7 +151,9 @@ mf.rsamp.lm_test <-
                 df.bsRegr <- data.frame(
                   Original = bsRegr$t0,
                   Bias = apply(bsRegr$t, 2, mean) - bsRegr$t0,
-                  Std.Error = apply(bsRegr$t, 2, sd)
+                  Std.Error = apply(bsRegr$t, 2, sd),
+                  LCI = apply(bsRegr$t, 2, function(vec) quantile(vec, 1-confint)),
+                  UCI = apply(bsRegr$t, 2, function(vec) quantile(vec, confint))
                 )
                 print(df.bsRegr)
 
