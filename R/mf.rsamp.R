@@ -6,6 +6,7 @@
 #' @import dplyr
 #' @import tibble
 #' @import robustbase
+#' @import boot
 #'
 #' @param var.x A character string to be RHS of formula in func.im.
 #' @param data A data.frame-class object in which phenotype data were input.
@@ -22,8 +23,7 @@
 #' @export
 
 
-
-mf.rsamp.lm <-
+mf.rsamp.lm_test <-
   function(
     var.x= "BVAS",
     data = pData.obj.aggTaxa.ADS,
@@ -33,6 +33,11 @@ mf.rsamp.lm <-
     func.stat = vegan::diversity,
     func.lm = robustbase::lmrob,
     lm.summary.statistics="coefficients",
+    boot.estimate = TRUE,
+    boot.method   = "ordinary",
+    var.estimate = "Estimate",
+    confint = NA,
+    nR      = 500,
     list.do.call.func.stat = list(index="simpson"),
     list.do.call.func.lm = list(method="MM"),
     ...
@@ -58,6 +63,29 @@ mf.rsamp.lm <-
         return(sum(x)>0)
       }
     )
+
+
+    fun.statistic <- function(data, ind){
+      res.lm <-
+        try(
+          do.call(
+            func.lm,
+            args = c(
+              list(fml, data[ind,]),
+              list.do.call.func.lm
+            )
+          )
+        )
+
+      if(class(res.lm)[1]!="try-error"){
+        statistics <-
+          summary(res.lm)[[lm.summary.statistics]] %>%
+          data.frame() %>%
+          rownames_to_column("terms")
+
+        return(statistics[,var.estimate])
+      }
+    }
 
     count.table <- count.table[,inc.sample.ID]
     ori.count.table <- ori.count.table[,inc.sample.ID]
@@ -102,12 +130,38 @@ mf.rsamp.lm <-
           res.lm <-
             try(
               do.call(func.lm, args = c(list(fml, data), list.do.call.func.lm))
-              )
+            )
 
-          if(class(res.lm)!="try-error"){
-            statistics <- summary(res.lm)[[lm.summary.statistics]] %>% data.frame() %>% rownames_to_column("terms")
-            return(statistics)
+          if(class(res.lm)[1]!="try-error"){
+
+            statistics <-
+              summary(res.lm)[[lm.summary.statistics]] %>%
+              data.frame() %>%
+              rownames_to_column("terms")
+
+            if(itt$itt==1){
+              if(boot.estimate){
+                bsRegr <- boot(
+                  data,
+                  statistic = fun.statistic,
+                  R=nR,
+                  sim  = boot.method,
+                  stype = "i"
+                )
+                df.bsRegr <- data.frame(
+                  Original = bsRegr$t0,
+                  Bias = apply(bsRegr$t, 2, mean) - bsRegr$t0,
+                  Std.Error = apply(bsRegr$t, 2, sd)
+                )
+                print(df.bsRegr)
+
+                statistics[,"var.estimate"] <- statistics[,var.estimate]
+
+                statistics <- full_join(statistics,df.bsRegr, by=c("var.estimate"="Original"))
+              }
             }
+            return(statistics)
+          }
         }
       )
     return(res.rsamp.summary.lm)

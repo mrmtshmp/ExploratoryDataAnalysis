@@ -4,13 +4,33 @@
 \alias{mf.boxplot}
 \title{Make many boxplots from tidy ordering sheet}
 \usage{
-mf.boxplot(data, ggdata = NULL, output.plot = TRUE, var.x, var.y,
-  scale.var.y = "not_scale", var.caption = "", ax.lab.x = "X",
-  ax.lab.y = "Y", coord_fixed = TRUE, size = 0.5, var.col = NA,
-  plot.col = "black", plot.alpha = 1, plot.y_intcpt.alpha = 0,
-  plot.y_intcpt = 1, box.col = "gray", beeswarm = FALSE,
-  width.box = NA, theme.input = theme_bw(), str, str.x = NULL,
-  str.y = NULL, dn.surfix, .dir.output = dir.output)
+mf.boxplot(
+  data,
+  ggdata = NULL,
+  output.plot = TRUE,
+  var.x,
+  var.y,
+  scale.var.y = "not_scale",
+  var.caption = "",
+  ax.lab.x = "X",
+  ax.lab.y = "Y",
+  coord_fixed = TRUE,
+  size = 0.5,
+  var.col = NA,
+  plot.col = "black",
+  plot.alpha = 1,
+  plot.y_intcpt.alpha = 0,
+  plot.y_intcpt = 1,
+  box.col = "gray",
+  beeswarm = FALSE,
+  width.box = NA,
+  theme.input = theme_bw(),
+  str,
+  str.x = NULL,
+  str.y = NULL,
+  dn.surfix,
+  .dir.output = dir.output
+)
 }
 \arguments{
 \item{data}{<object; input> A data frame with variables (ind, var.x, var.y, trans.y, trans.x, var.col, str, dn.surfix)}

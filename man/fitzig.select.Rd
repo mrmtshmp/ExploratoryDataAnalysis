@@ -4,8 +4,14 @@
 \alias{fitzig.select}
 \title{Conduct fitZIG analysis (metagenomeSeq paclage) with selected subpopulation}
 \usage{
-fitzig.select(obj, var.select = Type, condition = c(3, 4),
-  var.analyze = "ACPA", rareTrimming, fit.zig.settings)
+fitzig.select(
+  obj,
+  var.select = Type,
+  condition = c(3, 4),
+  var.analyze = "ACPA",
+  rareTrimming,
+  fit.zig.settings
+)
 }
 \arguments{
 \item{obj}{<object; input> A metagenomeSeq-class object.}

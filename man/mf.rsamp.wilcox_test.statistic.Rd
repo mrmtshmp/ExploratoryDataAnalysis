@@ -4,11 +4,15 @@
 \alias{mf.rsamp.wilcox_test.statistic}
 \title{Make many boxplots from tidy ordering sheet}
 \usage{
-mf.rsamp.wilcox_test.statistic(var.x = "Disease",
+mf.rsamp.wilcox_test.statistic(
+  var.x = "Disease",
   data = pData.obj.aggTaxa.ADS,
   count.table = MRcounts(obj.aggTaxa.ADS),
   ori.count.table = MRcounts(obj.aggTaxa),
-  itt.rsamp = itt.rsamp.wilcox, func.stat = vegan::diversity, ...)
+  itt.rsamp = itt.rsamp.wilcox,
+  func.stat = vegan::diversity,
+  ...
+)
 }
 \arguments{
 \item{df.ADS}{<object; input> A data frame}
