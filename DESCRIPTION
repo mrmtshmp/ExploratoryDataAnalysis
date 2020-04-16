@@ -30,4 +30,6 @@ Imports:
     tidyr,
     ggbeeswarm,
     magrittr,
-    coin
+    coin,
+    boot,
+    robustbase

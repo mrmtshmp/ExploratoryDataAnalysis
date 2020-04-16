@@ -213,7 +213,8 @@ mf.boxplot <- function(
     #      scale_y_log10() +
     scale_x_discrete() +
     facet_grid(
-      as.formula(formula.facet)
+      as.formula(formula.facet),
+      scales = "free_x"
     ) +
     theme_bw() +
     theme.input +
