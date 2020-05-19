@@ -15,6 +15,7 @@ mf.boxplot(
   ax.lab.x = "X",
   ax.lab.y = "Y",
   coord_fixed = TRUE,
+  facet_grid.scale = "free_x",
   size = 0.5,
   var.col = NA,
   plot.col = "black",
