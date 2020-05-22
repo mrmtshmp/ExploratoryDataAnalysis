@@ -143,11 +143,15 @@ mf.boxplot <- function(
     #   )
 
   }else{
-    plot.color <-
-      scale_color_gradient(
-        low = plot.col,
-        high = plot.col
-      )
+    if(class(data[,var.col])=="numeric")
+      plot.color <-
+        scale_color_gradient(
+          low = plot.col,
+          high = plot.col
+          )
+    if(class(data[,var.col])=="factor")
+      plot.color <-
+        scale_color_discrete()
 
     #       jitter <- geom_beeswarm(
     #         aes(
