@@ -53,6 +53,8 @@ mf.boxplot <- function(
   print(var.x)
   print(var.y)
 
+  if(is.na(var.col)){data$var.col <- "black"; var.col <- var.col}
+
   if(is.null(ggdata)){
     ggdata <- data %>%
       ggplot(aes(x=as.factor(get(var.x)), y=get(var.y)))
