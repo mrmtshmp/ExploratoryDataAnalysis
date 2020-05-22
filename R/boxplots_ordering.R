@@ -36,6 +36,7 @@ mf.boxplot <- function(
   size = 0.5,
   var.col=NA,
   plot.col="black",
+  list.args.scale_color_discrete = NULL,
   plot.alpha=1,
   plot.y_intcpt.alpha=0,
   plot.y_intcpt=1,
@@ -89,12 +90,20 @@ mf.boxplot <- function(
 
   if(is.na(width.box)){width.box <- 1}
 
-  if (length(grep("_", plot.col)) & class(data[,var.col])=="numeric") {
-    plot.color <-
-      scale_color_gradient(
-        low = strsplit(plot.col, "_")[[1]][1],
-        high = strsplit(plot.col, "_")[[1]][2]
-      )
+  if (length(grep("_", plot.col))) {
+    if(class(data[,var.col])=="numeric"){
+      plot.color <-
+        scale_color_gradient(
+          low = strsplit(plot.col, "_")[[1]][1],
+          high = strsplit(plot.col, "_")[[1]][2]
+        )
+    }
+    if(class(data[,var.col])=="factor"){
+      plot.color <-
+        do.call(scale_color_discrete,args = list.args.scale_color_discrete)
+    }
+
+
 
     if(beeswarm){
       jitter <- geom_beeswarm(

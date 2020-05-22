@@ -19,6 +19,7 @@ mf.boxplot(
   size = 0.5,
   var.col = NA,
   plot.col = "black",
+  list.args.scale_color_discrete = NULL,
   plot.alpha = 1,
   plot.y_intcpt.alpha = 0,
   plot.y_intcpt = 1,
