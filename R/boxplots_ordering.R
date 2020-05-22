@@ -240,7 +240,7 @@ mf.boxplot <- function(
     ylab(ax.lab.y) +
     labs(
       title = str,
-      fill= var.col,
+      color= var.col,
       caption = var.caption
     )
 
