@@ -89,7 +89,7 @@ mf.boxplot <- function(
 
   if(is.na(width.box)){width.box <- 1}
 
-  if (length(grep("_", plot.col))) {
+  if (length(grep("_", plot.col)) & class(data[,var.col])=="numeric") {
     plot.color <-
       scale_color_gradient(
         low = strsplit(plot.col, "_")[[1]][1],
