@@ -53,7 +53,7 @@ mf.boxplot <- function(
   print(var.x)
   print(var.y)
 
-  if(is.na(var.col)){data$var.col <- "black"; var.col <- "var.col"}
+  if(is.na(var.col)){data$var.col <- factor("black"); var.col <- "var.col"}
 
   if(is.null(ggdata)){
     ggdata <- data %>%
