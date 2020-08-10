@@ -19,7 +19,7 @@
 #' @export
 
 
-testMIPermute <- function(
+MIPermute <- function(
   X,
   Y,
   S=NULL,
