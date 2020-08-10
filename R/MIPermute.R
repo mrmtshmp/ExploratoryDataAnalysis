@@ -26,6 +26,7 @@ MIPermute <- function(
   method='emp',
   disc.X='equalfreq',
   disc.Y='equalfreq',
+  disc.S = 'none',
   alpha = 0.6,
   n.sim = 2000,
   ...
