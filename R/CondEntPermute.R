@@ -19,19 +19,20 @@
 #' @export
 
 
-MIPermute <- function(
+CondEntPermute <- function(
   X,
-  Y,
-  S=NULL,
+  Y1,
+  Y2,
   method='emp',
   disc.X='equalfreq',
-  disc.Y='equalfreq',
+  disc.Y1='equalfreq',
+  disc.Y2='equalfreq',
   alpha = 0.6,
   n.sim = 2000,
   ...
 ){
 
-  D <- data.frame('X'=unname(X), 'Y'=unname(Y))
+  D <- data.frame('X'=unname(X), 'Y1'=unname(Y1), 'Y2'=unname(Y2))
 
   df.pmt <- data.frame(
     i=seq(1:n.sim),
@@ -39,16 +40,20 @@ MIPermute <- function(
   )
 
   if(
-    method !="MIC" &
     disc.X != "none" &
-    disc.Y != "none"
+    disc.Y1 != "none" &
+    disc.Y2 != "none"
     ){
     output <- ddply(
       df.pmt,
       .(i),
       function(itt){
         i.numb <- unique(itt$i)
-        if(i.numb > 1) D$Y <- sample(D$Y)
+        if(i.numb > 1) {
+          D.randsam <- D %>%
+            gather(var, val, -X)
+          D$Y <- sample(D$Y)
+          }
 
         if(is.null(S)){
           m1a <- infotheo::mutinformation(
@@ -58,7 +63,6 @@ MIPermute <- function(
             method = method
             )
         }else{
-          D$S <- unname(S)
           m1a <- infotheo::condinformation(
             X=discretize(D$X, disc = disc.X, nbins = ),
             Y=discretize(D$Y, disc = disc.Y, nbins = ),
@@ -88,7 +92,6 @@ MIPermute <- function(
                 method = method
                 )
             } else{
-              D$S <- unname(S)
               m1a <- infotheo::condinformation(
                 X=as.factor(D$X),
                 Y=as.factor(D$Y),
