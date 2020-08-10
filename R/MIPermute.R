@@ -19,7 +19,7 @@
 #' @export
 
 
-MIPermute <- function(
+testMIPermute <- function(
   X,
   Y,
   S=NULL,
@@ -32,6 +32,11 @@ MIPermute <- function(
 ){
 
   D <- data.frame('X'=unname(X), 'Y'=unname(Y))
+
+  if(!is.null(S)) D$S <- unname(S)
+
+  print(try(ftable(D$S,D$X,D$Y)))
+
 
   df.pmt <- data.frame(
     i=seq(1:n.sim),
@@ -54,17 +59,16 @@ MIPermute <- function(
           m1a <- infotheo::mutinformation(
             X=discretize(D$X, disc = disc.X, nbins = ),
             Y=discretize(D$Y, disc = disc.Y, nbins = ),
-            S=D$S,
             method = method
             )
-        }else{
-          D$S <- unname(S)
+          }
+        if(!is.null(S)){
           m1a <- infotheo::condinformation(
             X=discretize(D$X, disc = disc.X, nbins = ),
             Y=discretize(D$Y, disc = disc.Y, nbins = ),
-            S=D$S,
+            S=discretize(D$S, disc = disc.S, nbins = ),
             method = method
-          )
+            )
           }
         return(m1a)
         }
@@ -87,14 +91,23 @@ MIPermute <- function(
                 Y=as.factor(D$Y),
                 method = method
                 )
-            } else{
-              D$S <- unname(S)
-              m1a <- infotheo::condinformation(
-                X=as.factor(D$X),
-                Y=as.factor(D$Y),
-                S=D$S,
-                method = method
-                )
+              }
+            if(!is.null(S)){
+              if(disc.S=='none'){
+                m1a <- infotheo::condinformation(
+                  X=as.factor(D$X),
+                  Y=as.factor(D$Y),
+                  S=as.factor(D$S),
+                  method = method
+                  )
+              }else{
+                m1a <- infotheo::condinformation(
+                  X=as.factor(D$X),
+                  Y=as.factor(D$Y),
+                  S=discretize(D$S, disc = disc.S, nbins = ),
+                  method = method
+                  )
+                }
               }
             return(m1a)
             }
